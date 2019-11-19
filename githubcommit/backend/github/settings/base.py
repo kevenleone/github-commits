@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'githubcommit.urls'
+ROOT_URLCONF = 'github.urls'
 
 TEMPLATES = [
     {
@@ -72,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'githubcommit.wsgi.application'
+WSGI_APPLICATION = 'github.wsgi.application'
 
 AUTH_PASSWORD_VALIDATORS = [
     {

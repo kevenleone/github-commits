@@ -1,6 +1,4 @@
-[![License: MIT](https://img.shields.io/github/license/vintasoftware/django-react-boilerplate.svg)](LICENSE.txt)
-
-# Django React Boilerplate
+# Github Commits
 
 ## About
 A [Django](https://www.djangoproject.com/) project boilerplate/template with lots of state of the art libraries and tools like:
@@ -39,8 +37,8 @@ In the next steps, always remember to replace theprojectname with your project's
 - [ ] Compile the requirements before installation: `pip-compile requirements.in > requirements.txt && pip-compile dev-requirements.in > dev-requirements.txt`
 - [ ] `pip install -r requirements.txt && pip install -r dev-requirements.txt`
 - [ ] Change the first line of README to the name of the project.
-- [ ] Add an email address to the `ADMINS` settings variable in `githubcommit/githubcommit/settings/base.py`
-- [ ] Change the `SERVER_EMAIL` to the email address used to send e-mails in `githubcommit/githubcommit/settings/production.py`
+- [ ] Add an email address to the `ADMINS` settings variable in `github/github/settings/base.py`
+- [ ] Change the `SERVER_EMAIL` to the email address used to send e-mails in `github/github/settings/production.py`
 - [ ] Rename the folder `circleci` to `.circleci` with the command `mv circleci .circleci`
 
 After completing ALL of the above, remove this `Project bootstrap` section from the project README. Then follow `Running` below.
@@ -48,8 +46,8 @@ After completing ALL of the above, remove this `Project bootstrap` section from 
 ## Running
 ### Setup (plain python)
 - Inside the `backend` folder, do the following:
-- Create a copy of ``githubcommit/settings/local.py.example``:
-  `cp githubcommit/settings/local.py.example githubcommit/settings/local.py` (remembering you should replace `githubcommit` with your project's name!).
+- Create a copy of ``github/settings/local.py.example``:
+  `cp github/settings/local.py.example github/settings/local.py` (remembering you should replace `github` with your project's name!).
 - Create a copy of ``.env.example``:
   `cp .env.example .env`
 If you are using plain python:

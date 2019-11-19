@@ -1,8 +1,8 @@
 {
-  "name": "githubcommit-frontend",
+  "name": "github-frontend",
   "version": "0.0.1",
   "private": true,
-  "description": "githubcommit frontend.",
+  "description": "github frontend.",
   "main": "index.js",
   "prettier": "eslint-config-vinta/prettier",
   "scripts": {

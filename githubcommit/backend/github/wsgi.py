@@ -1,5 +1,5 @@
 """
-WSGI config for githubcommit project.
+WSGI config for github project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -12,6 +12,6 @@ import os
 from django.core.wsgi import get_wsgi_application
 
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "githubcommit.settings.production")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "github.settings.production")
 
 application = get_wsgi_application()
