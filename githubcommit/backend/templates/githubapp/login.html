@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<style>
+  .loginPanel {
+    width: 550px;
+    padding: 10% 0 0;
+    margin: auto;
+  }
+</style>
+
+<div class="loginPanel">
+  <center><img style="width: 400px; padding: 5%" src="https://miro.medium.com/max/1200/1*dDNpLKu_oTLzStsDTnkJ-g.png">
+  </center>
+  <div class="card">
+    <div class="card-header">
+      <h5>GitHub Commits</h5>
+    </div>
+    <div class="card-body">
+      <form action="{% url 'home' %}" method="POST">
+        {% if formError %}
+        <div class="alert alert-danger">
+          <strong>Hey!</strong> You insert wrong credentials, try again.
+        </div>
+        {% endif %}
+        <input type="text" class="form-control" value="{{username}}" placeholder="Username" name="username"> <br>
+        <input type="password" value="{{password}}" class="form-control" placeholder="Password" name="password"> <br>
+        <button class="btn btn-primary btn-block" type="submit">Sign in</button> <br>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

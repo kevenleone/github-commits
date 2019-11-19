@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^jsreverse/$', django_js_reverse.views.urls_js, name='js_reverse'),
 
-    url(r'^$', TemplateView.as_view(template_name='githubapp/itworks.html'), name='home'),
+    url(r'^$', TemplateView.as_view(template_name='githubapp/login.html'), name='login'),
+    url(r'^home/$', TemplateView.as_view(template_name='githubapp/itworks.html'), name='home'),
 ]
