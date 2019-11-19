@@ -8,7 +8,9 @@
   "scripts": {
     "test": "jest",
     "test:watch": "npm test -- --watch",
-    "start": "babel-node server.js",
+    "start": "npm-run-all -p start:*",
+    "start:web": "babel-node server.js",
+    "start:server": "python3 backend/manage.py runserver",
     "build": "NODE_ENV=production webpack -p --progress --colors --config webpack.prod.config.js --bail",
     "lint": "eslint frontend",
     "coverage": "jest --coverage"
@@ -19,6 +21,7 @@
     "@babel/preset-env": "~7.5.0",
     "@babel/preset-react": "~7.0.0",
     "@sentry/browser": "~5.6.2",
+    "@types/react": "~16.9.0",
     "autoprefixer": "~9.6.1",
     "babel-loader": "~8.0.0",
     "bootstrap": "~4.3.1",
@@ -36,7 +39,6 @@
     "postcss-loader": "~2.0.6",
     "prop-types": "~15.5.10",
     "react": "~16.9.0",
-    "@types/react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-hot-loader": "~4.12.3",
     "redux": "~4.0.0",
@@ -78,6 +80,7 @@
     "jest": "~23.6.0",
     "jest-css-modules": "~2.1.0",
     "mini-css-extract-plugin": "~0.8.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "~1.18.2",
     "redux-mock-store": "~1.5.3",
     "webpack-cli": "~3.3.2"
