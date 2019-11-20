@@ -1,0 +1,33 @@
+.commits {
+  .commit {
+    border: 1px solid #333;
+    padding: 2px;
+    background: #ddd;
+    margin: 10px 0px;
+    display: flex;
+    flex-direction: row;
+
+    span.commit-name {
+      font-size: 18px;
+      font-weight: bold;
+      color: #222;
+
+    }
+
+    img.authorImg {
+      width: 50px;
+      height: 50px;
+    }
+
+    .left {
+      margin-left: 10px;
+    }
+
+    .right {
+      margin: 5px;
+      display: flex;
+      flex-direction: column;
+    }
+
+  }
+}

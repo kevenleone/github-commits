@@ -9,6 +9,12 @@
   }
 </style>
 
+<script>
+  function openOAuth() {
+    window.location.href = `https://github.com/login/oauth/authorize?client_id=437efa9526ca788ce42f`
+  }
+</script>
+
 <div class="loginPanel">
   <center><img style="width: 400px; padding: 5%" src="https://miro.medium.com/max/1200/1*dDNpLKu_oTLzStsDTnkJ-g.png">
   </center>
@@ -17,17 +23,7 @@
       <h5>GitHub Commits</h5>
     </div>
     <div class="card-body">
-      <form action="{% url 'signin' %}" method="POST">
-        {% csrf_token %}
-        {% if error_message %}
-        <div class="alert alert-danger">
-          <strong>Hey!</strong> {{error_message}}.
-        </div>
-        {% endif %}
-        <input type="text" class="form-control" value="{{user}}" placeholder="Username" name="user"> <br>
-        <input type="password" value="{{password}}" class="form-control" placeholder="Password" name="password"> <br>
-        <button class="btn btn-primary btn-block" type="submit">Sign in</button> <br>
-      </form>
+        <button onclick="openOAuth()" class="btn btn-primary btn-block" type="submit">Sign in with GitHub</button> <br>
     </div>
   </div>
 </div>
