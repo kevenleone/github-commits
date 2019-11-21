@@ -1,0 +1,58 @@
+.repositories {
+  .register {
+    margin-top: 29px;
+  }
+
+  div.list {
+    display: flex;
+    width: 100%;
+    margin: 2%;
+    flex-direction: column;
+    box-shadow: #555;
+
+    .repository {
+      background-color: lightsteelblue;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+
+      box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.195);
+
+      span.title {
+        color: #333;
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      p.description {
+        color: #555;
+      }
+
+      div.icons {
+        line-height: 20px;
+        color: #111;
+        display: flex;
+      }
+
+      div.icon:last-child {
+        margin-left: 15px;
+      }
+    }
+
+    .repository:hover {
+      background-color: #333;
+
+      span.title {
+        color: #fff;
+      }
+
+      p.description {
+        color: #888;
+      }
+
+      div.icon {
+        color: #fafafa;
+      }
+    }
+  }
+}
