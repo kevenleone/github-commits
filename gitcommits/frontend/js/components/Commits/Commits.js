@@ -16,10 +16,10 @@ export default function Commits() {
   return (
     <div className="commits">
       {
-        commits.map(commit => {
+        commits.map((commit, index) => {
           const { commit: { message } } = commit;
           return (
-          <div className="commit">
+          <div key={index} className="commit">
             <div className="left">
               <img
                 src="https://avatars2.githubusercontent.com/u/22279592?v=4"

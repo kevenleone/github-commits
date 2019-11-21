@@ -10,6 +10,7 @@ pygithub = "*"
 gcg = "*"
 github3-py = "*"
 github = "*"
+djangorestframework = "*"
 
 [requires]
 python_version = "3.7"

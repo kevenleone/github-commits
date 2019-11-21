@@ -39,6 +39,9 @@ INSTALLED_APPS = [
 
     'common',
     'users',
+    'repositories',
+
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
