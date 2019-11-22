@@ -19,7 +19,7 @@ jobs:
           command: sudo chown -R circleci:circleci /usr/local/lib/python3.7/site-packages
       - run:
           command: pip install requests pip-tools --upgrade
-      
+
       - restore_cache:
           keys:
             - v1-pip-cache-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
@@ -29,7 +29,7 @@ jobs:
           command: |
             pip-compile requirements.in > requirements.txt;
             pip-compile dev-requirements.in > dev-requirements.txt;
-            pip install --user -r requirements.txt && pip install -r dev-requirements.tx
+            pip install --user -r requirements.txt && pip install -r dev-requirements.txt
       - save_cache:
           key: pip-cache-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
@@ -47,7 +47,7 @@ jobs:
           key: npm-cache-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - node_modules
-      
+
       - run:
           command: npm run build
       - run:
