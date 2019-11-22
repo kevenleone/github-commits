@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/keven.dos.s.leone/Documents/Vinta/github-commits/gitcommits/gitcommits"
+VIRTUAL_ENV="/Users/keven.dos.s.leone/Documents/Vinta/github-commits/gitcommits"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
