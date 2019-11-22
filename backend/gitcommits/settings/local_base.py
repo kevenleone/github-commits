@@ -1,6 +1,5 @@
 from .base import *  # noqa
 
-
 DEBUG = True
 
 HOST = 'http://localhost:8000'
@@ -29,8 +28,6 @@ AUTH_PASSWORD_VALIDATORS = []  # allow easy passwords only on local
 CELERY_TASK_ALWAYS_EAGER = True
 
 # Email
-INSTALLED_APPS += ('naomi',)
-EMAIL_BACKEND = 'naomi.mail.backends.naomi.NaomiBackend'
 EMAIL_FILE_PATH = base_dir_join('tmp_email')
 
 # Logging
