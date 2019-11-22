@@ -15,3 +15,4 @@ psutil
 ipython
 sentry-sdk
 djangorestframework
+requests
