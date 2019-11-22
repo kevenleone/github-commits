@@ -6,6 +6,8 @@ HOST = 'http://localhost:8000'
 
 SECRET_KEY = 'secret'
 
+SECURE_HSTS_SECONDS = 3600
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
