@@ -9,9 +9,9 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^jsreverse/$', django_js_reverse.views.urls_js, name='js_reverse'),
 
-    url(r'^login/$', views.index, name='login'),
+    url(r'^login/$', views.login, name='login'),
+    url(r'^$', views.index, name='home'),
     url(r'^authmiddleware/$', views.authMiddleware, name='oauth'),
-    url(r'^$', TemplateView.as_view(template_name='gitcommits/index.html'), name='home'),
     path('', include('repositories.urls'))
 
 ]
