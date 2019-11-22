@@ -5,18 +5,19 @@ from django.http import HttpResponseRedirect
 import requests
 import json
 
+def index(request):
+    if request.session.get('github_user'):
+        user = json.dumps(request.session['github_user'])
+        context = { 'user' : user }
+        return render(request, 'gitcommits/index.html', context )
+    else:
+        return HttpResponseRedirect('/login')
+
 def login(request):
     if not request.session.get('github_user'):
         return render(request, 'gitcommits/login.html')
     else:
         return HttpResponseRedirect('/')
-
-def index(request):
-    if request.session.get('github_user'):
-        user = json.loads(request.session['github_user'])
-        return render(request, 'gitcommits/index.html')
-    else:
-        return HttpResponseRedirect('/login')
 
 def authMiddleware(request):
     code = request.GET.get("code")

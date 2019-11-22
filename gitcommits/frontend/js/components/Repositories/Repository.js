@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, FormGroup, Label, Input, Button, Col, Row } from 'reactstrap';
+import { toast } from 'react-toastify'
 import Octicon, { RepoForked, Star } from '@primer/octicons-react';
 
 import api from '../../services';
@@ -8,6 +9,7 @@ import './Repository.scss';
 export default function Repository() {
   const [repositoryName, setRepositoryname] = useState("");
   const [repositories, setRepositories] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   async function getAllRepositories() {
     try {
@@ -20,13 +22,14 @@ export default function Repository() {
 
   async function registerRepository(e) {
     e.preventDefault();
+    setLoading(true);
     try {
       await api.post('repository/', { name: repositoryName, user_id: "kevenleone" });
       getAllRepositories();
     } catch (e) {
-      alert(e.message)
-      console.log(e)
+      toast.error(e.response.data.message);
     }
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -48,7 +51,11 @@ export default function Repository() {
             </FormGroup>
           </Col>
           <Col className="register">
-            <Button color="primary">Register</Button>
+            <Button
+              disabled={!repositoryName || loading}
+              color="primary">
+                {loading ? 'Loading...' : 'Register'}
+            </Button>
           </Col>
         </Row>
         <Row>
@@ -62,10 +69,18 @@ export default function Repository() {
                   <p className="description">{description}</p>
                   <div className="icons">
                     <div className="icon">
-                      <Octicon icon={Star} size={25} verticalAlign="middle" /> {stars}
+                      <Octicon
+                        icon={Star}
+                        size={25}
+                        verticalAlign="middle" />
+                        {` ${stars}`}
                     </div>
                     <div className="icon">
-                      <Octicon icon={RepoForked} size={26} verticalAlign="middle" /> {forks}
+                      <Octicon
+                        icon={RepoForked}
+                        size={25}
+                        verticalAlign="middle" />
+                        {` ${forks}`}
                     </div>
                   </div>
                 </div>

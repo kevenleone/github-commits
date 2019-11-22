@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'reactstrap';
-import Octicon, { MarkGithub } from '@primer/octicons-react';
+import Octicon, { MarkGithub, GitCommit } from '@primer/octicons-react';
 
 import { Header } from '../../components/Header';
 import { Commits } from '../../components/Commits';
@@ -15,7 +15,10 @@ export default function Home() {
       <div className="mainContainer">
         <Row>
           <Col xs={8}>
-            <h1 className="welcome">Commits List</h1>
+            <h1 className="welcome">
+              <Octicon className="giticon" icon={GitCommit} size={35} verticalAlign="middle" />
+              Commits List
+            </h1>
             <Commits />
           </Col>
           <Col>

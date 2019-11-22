@@ -28,6 +28,6 @@ class RepositorySerializer(serializers.ModelSerializer):
             return repository
         else:
             raise serializers.ValidationError({
-                'repository': 'Repository not exists'
+                'message': 'Github: Repository not found'
             })
 

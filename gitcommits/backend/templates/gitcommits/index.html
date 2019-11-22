@@ -1,4 +1,14 @@
 {% extends 'base.html' %}
+
 {% block body %}
   <div id="react-app"></div>
+{% endblock %}
+
+
+{% block loadscript %}
+
+ <script type="text/javascript">
+  window.user = JSON.parse({{user|safe}})
+</script>
+
 {% endblock %}

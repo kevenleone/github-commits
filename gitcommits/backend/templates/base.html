@@ -13,6 +13,8 @@
     {% render_bundle 'main' 'css' %}
   </head>
 
+    {% block loadscript %}{% endblock %}
+
   <body>
     {% include 'includes/sentry_init.html' %}
 
