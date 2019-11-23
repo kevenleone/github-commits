@@ -2,8 +2,13 @@ const path = require('path');
 
 module.exports = {
   extends: 'vinta/recommended',
+  "parserOptions": {
+    "ecmaVersion": 2017
+  },
   rules: {
     'jest/prefer-inline-snapshots': ['off'],
+    'import/named': 'off',
+    'babel/camelcase': 'off'
   },
   env: {
     es6: true,
@@ -16,6 +21,6 @@ module.exports = {
         config: path.join(__dirname, '/webpack.local.config.js'),
         'config-index': 1
       }
-    }
-  }
+    },
+  },
 }

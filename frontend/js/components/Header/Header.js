@@ -22,9 +22,9 @@ const Header = () => {
           <Nav className="mr-auto" navbar />
           <p className="user_name">
             Welcome, {window.user.name} <br />
-            <span className="logout" onClick={callLogout}>
+            <button className="logout" type="button" onClick={callLogout}>
               Logout
-            </span>
+            </button>
           </p>
           <img alt="user" className="user_avatar" src={window.user.avatar_url} />
         </Collapse>

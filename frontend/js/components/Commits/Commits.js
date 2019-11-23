@@ -1,39 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Commits.scss'
+import { toast } from 'react-toastify';
+import './Commits.scss';
+
 export default function Commits() {
   const [commits, setCommits] = useState([]);
 
   async function getCommits() {
-    const comm = await axios.get('https://api.github.com/repos/kevenleone/graphscript/commits?sha=master');
-    setCommits(comm.data)
+    try {
+      const comm = await axios.get(
+        'https://api.github.com/repos/kevenleone/graphscript/commits?sha=master'
+      );
+      setCommits(comm.data);
+    } catch (e) {
+      toast.error(e);
+    }
   }
 
   useEffect(() => {
-    getCommits()
+    getCommits();
   }, []);
 
   return (
     <div className="commits">
-      {
-        commits.map((commit, index) => {
-          const { commit: { message } } = commit;
-          return (
-          <div key={index} className="commit">
+      {commits.map((commit, index) => {
+        const {
+          commit: { message },
+        } = commit;
+        const i = index;
+        return (
+          <div key={i} className="commit">
             <div className="left">
               <img
-                src="https://avatars2.githubusercontent.com/u/22279592?v=4"
                 alt="author"
-                className="authorImg"/>
+                className="authorImg"
+                src="https://avatars2.githubusercontent.com/u/22279592?v=4"
+              />
             </div>
             <div className="right">
               <span className="commit-name">{message}</span>
               <span className="author">Keven</span>
             </div>
           </div>
-          )
-        })
-      }
+        );
+      })}
     </div>
-  )
+  );
 }

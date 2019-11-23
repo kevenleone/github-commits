@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Form, FormGroup, Label, Input, Button, Col, Row } from 'reactstrap';
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
 import Octicon, { RepoForked, Star } from '@primer/octicons-react';
 
 import api from '../../services';
 import './Repository.scss';
 
 export default function Repository() {
-  const [repositoryName, setRepositoryName] = useState("");
+  const [repositoryName, setRepositoryName] = useState('');
   const [repositories, setRepositories] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -15,9 +15,9 @@ export default function Repository() {
     try {
       const request = await api.get('repository/');
       setRepositories(request.data);
-      setRepositoryName("")
+      setRepositoryName('');
     } catch (e) {
-      console.log(e);
+      toast.error(e);
     }
   }
 
@@ -25,17 +25,17 @@ export default function Repository() {
     e.preventDefault();
     setLoading(true);
     try {
-      await api.post('repository/', { name: repositoryName, user_id: "kevenleone" });
+      await api.post('repository/', { name: repositoryName, user_id: 'kevenleone' });
       getAllRepositories();
-    } catch (e) {
-      toast.error(e.response.data.message);
+    } catch (err) {
+      toast.error(err.response.data.message);
     }
     setLoading(false);
   }
 
   useEffect(() => {
     getAllRepositories();
-  }, [])
+  }, []);
 
   return (
     <div className="repositories">
@@ -52,42 +52,32 @@ export default function Repository() {
             </FormGroup>
           </Col>
           <Col className="register">
-            <Button
-              disabled={!repositoryName || loading}
-              color="primary">
-                {loading ? 'Loading...' : 'Register'}
+            <Button color="primary" disabled={!repositoryName || loading}>
+              {loading ? 'Loading...' : 'Register'}
             </Button>
           </Col>
         </Row>
         <Row>
           <div className="list">
-            {
-              repositories.map(repository => {
-                const { description, forks, id, language, name, stars } = repository;
-                return (
-                  <div key={id} className="repository">
+            {repositories.map((repository) => {
+              const { description, forks, id, name, stars } = repository;
+              return (
+                <div key={id} className="repository">
                   <span className="title">{name}</span>
                   <p className="description">{description}</p>
                   <div className="icons">
                     <div className="icon">
-                      <Octicon
-                        icon={Star}
-                        size={25}
-                        verticalAlign="middle" />
-                        {` ${stars}`}
+                      <Octicon icon={Star} size={25} verticalAlign="middle" />
+                      {` ${stars}`}
                     </div>
                     <div className="icon">
-                      <Octicon
-                        icon={RepoForked}
-                        size={25}
-                        verticalAlign="middle" />
-                        {` ${forks}`}
+                      <Octicon icon={RepoForked} size={25} verticalAlign="middle" />
+                      {` ${forks}`}
                     </div>
                   </div>
                 </div>
-                )
-              })
-            }
+              );
+            })}
           </div>
         </Row>
       </Form>
