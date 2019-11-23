@@ -7,7 +7,7 @@ import api from '../../services';
 import './Repository.scss';
 
 export default function Repository() {
-  const [repositoryName, setRepositoryname] = useState("");
+  const [repositoryName, setRepositoryName] = useState("");
   const [repositories, setRepositories] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -15,6 +15,7 @@ export default function Repository() {
     try {
       const request = await api.get('repository/');
       setRepositories(request.data);
+      setRepositoryName("")
     } catch (e) {
       console.log(e);
     }
@@ -46,7 +47,7 @@ export default function Repository() {
               <Input
                 placeholder="graphscript"
                 value={repositoryName}
-                onChange={({ target: { value } }) => setRepositoryname(value)}
+                onChange={({ target: { value } }) => setRepositoryName(value)}
               />
             </FormGroup>
           </Col>

@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav } from 'reactstrap';
 import './Header.scss';
 
+function callLogout() {
+  // eslint-disable-next-line no-alert
+  const shouldLogout = window.confirm(`${window.user.name}, you sure you want logout?`);
+  if (shouldLogout) {
+    window.location.href = '/logout';
+  }
+}
+
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
@@ -12,7 +20,12 @@ const Header = () => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar />
-          <span className="user_name">Welcome, {window.user.name}!</span>
+          <p className="user_name">
+            Welcome, {window.user.name} <br />
+            <span className="logout" onClick={callLogout}>
+              Logout
+            </span>
+          </p>
           <img alt="user" className="user_avatar" src={window.user.avatar_url} />
         </Collapse>
       </Navbar>

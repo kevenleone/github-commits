@@ -19,6 +19,14 @@ def login(request):
     else:
         return HttpResponseRedirect('/')
 
+def logout(request):
+    try:
+        del request.session['github_user']
+    except KeyError:
+        print("Session not exists, redirecting...")
+    finally:
+        return HttpResponseRedirect('/login')
+
 def authMiddleware(request):
     code = request.GET.get("code")
     if code:

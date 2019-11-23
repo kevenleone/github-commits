@@ -6,7 +6,16 @@
     margin-left: 10px;
   }
 
-  span.user_name {
+  span.logout {
+    cursor: pointer;
+    color: #fafafa;
+    font-weight: bold;
+  }
+
+  p.user_name {
     color: #dadada;
+    position: absolute;
+    top: 30px;
+    right: 70px;
   }
 }
