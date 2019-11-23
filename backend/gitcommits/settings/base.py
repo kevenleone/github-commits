@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'common',
     'users',
     'repositories',
+    'commits',
 
     'rest_framework'
 ]
