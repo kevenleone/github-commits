@@ -55,10 +55,11 @@ export default function Repository() {
         <If condition={Boolean(repositories.length)}>
           <Then>
             <div className="list">
-              {repositories.map((repository) => {
-                const { description, forks, _id: id, name, stars } = repository;
+              {repositories.map((repository, index) => {
+                const { description, forks, name, stars } = repository;
+                const i = index;
                 return (
-                  <div key={id} className="repository">
+                  <div key={i} className="repository">
                     <span className="title">{name}</span>
                     <p className="description">{description}</p>
                     <div className="icons">
