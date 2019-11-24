@@ -18,11 +18,11 @@ export function* addRepository(action) {
   }
 }
 
-export function* getAllRepositories() {
+export function* getAllRepositories(action) {
   yield put({ type: 'SET_LOADING' });
 
   try {
-    const response = yield call(api.get, '/repository');
+    const response = yield call(api.get, `/repository/${action.payload.user_id}`);
     yield put({ type: 'GET_ALL_REPOSITORIES', payload: response.data });
   } catch (e) {
     yield put({ type: 'ERROR', payload: e });

@@ -10,8 +10,12 @@ SECURE_HSTS_SECONDS = 3600
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': base_dir_join('db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'gitcommits',
+        'USER': 'postgres',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 

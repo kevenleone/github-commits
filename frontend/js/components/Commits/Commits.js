@@ -44,7 +44,7 @@ export default function Commits() {
                   </div>
                   <ol className="commit-group table-list table-list-bordered">
                     {commits[commitKey].map((commit, index) => {
-                      const { message, author, author_avatar, created_at } = commit;
+                      const { message, author, author_avatar, repository, created_at } = commit;
                       const i = index;
                       return (
                         <li key={i}>
@@ -60,7 +60,9 @@ export default function Commits() {
                               <span className="commit_name">
                                 {message.length >= 80 ? `${message.substring(0, 120)}...` : message}
                               </span>
-                              <span className="author">{author}</span>
+                              <span className="author">
+                                {author} at <small>[{repository}]</small>
+                              </span>
                             </div>
                           </div>
                         </li>

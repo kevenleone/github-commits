@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^$', views.index, name='home'),
     url(r'^authmiddleware/$', views.authMiddleware, name='oauth'),
-    path('', include('repositories.urls'))
+    path('', include('repositories.urls')),
+    path('', include('commits.urls'))
 ]

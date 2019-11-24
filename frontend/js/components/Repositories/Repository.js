@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { If, Then, Else } from 'react-if';
-import { Form, Alert, FormGroup, Label, Input, Button, Col, Row } from 'reactstrap';
 import Octicon, { RepoForked, Star } from '@primer/octicons-react';
+import { Form, Alert, FormGroup, Label, Input, Button, Col, Row } from 'reactstrap';
 
 import './Repository.scss';
 
@@ -10,11 +10,15 @@ export default function Repository() {
   const dispatch = useDispatch();
   const [repositoryName, setRepositoryName] = useState('');
 
-  const { data: repositories } = useSelector((state) => state.repositories);
+  const {
+    base: { user },
+    repositories: { data: repositories },
+  } = useSelector((state) => state);
 
   function getAllRepositories() {
     dispatch({
       type: 'GET_ALL_REPOSITORY_SAGA',
+      payload: { user_id: user.login },
     });
   }
 
@@ -58,7 +62,7 @@ export default function Repository() {
           <Then>
             <div className="list">
               {repositories.map((repository, index) => {
-                const { description, forks, name, stars } = repository;
+                const { description, fork, name, star } = repository;
                 const i = index;
                 return (
                   <div key={i} className="repository">
@@ -67,11 +71,11 @@ export default function Repository() {
                     <div className="icons">
                       <div className="icon">
                         <Octicon icon={Star} size={25} verticalAlign="middle" />
-                        {` ${stars}`}
+                        {` ${star}`}
                       </div>
                       <div className="icon">
                         <Octicon icon={RepoForked} size={25} verticalAlign="middle" />
-                        {` ${forks}`}
+                        {` ${fork}`}
                       </div>
                     </div>
                   </div>

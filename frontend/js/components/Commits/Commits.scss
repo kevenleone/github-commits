@@ -69,7 +69,14 @@
 
     span.author {
       font-weight: 500;
-      color: #433
+      color: #433;
+
+      small {
+        font-weight: bold;
+        font-size: 13px;
+        color: lightcoral;
+        cursor: pointer;
+      }
     }
 
     img.authorImg {

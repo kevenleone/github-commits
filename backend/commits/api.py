@@ -1,4 +1,4 @@
-from commits.models import Commit
+from .models import Commit
 from rest_framework import viewsets, permissions
 from .serializers import CommitSerializer
 
@@ -8,3 +8,4 @@ class CommitViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = CommitSerializer
+
