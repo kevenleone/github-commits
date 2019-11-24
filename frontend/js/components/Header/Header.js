@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav } from 'reactstrap';
 import './Header.scss';
 
@@ -11,6 +12,7 @@ function callLogout() {
 }
 
 const Header = () => {
+  const { user } = useSelector((state) => state.base);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   return (
@@ -21,12 +23,12 @@ const Header = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar />
           <p className="user_name">
-            Welcome, {window.user.name} <br />
+            Welcome, {user.name} <br />
             <button className="logout" type="button" onClick={callLogout}>
               Logout
             </button>
           </p>
-          <img alt="user" className="user_avatar" src={window.user.avatar_url} />
+          <img alt="user" className="user_avatar" src={user.avatar_url} />
         </Collapse>
       </Navbar>
     </div>

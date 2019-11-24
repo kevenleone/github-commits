@@ -47,7 +47,9 @@ export default function Repository() {
             </FormGroup>
           </Col>
           <Col className="register">
-            <Button color="primary">Register</Button>
+            <Button color="primary" disabled={!repositoryName}>
+              Register
+            </Button>
           </Col>
         </Row>
       </Form>

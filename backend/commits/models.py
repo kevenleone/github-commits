@@ -2,6 +2,7 @@ from django.db import models
 
 class Commit(models.Model):
     sha = models.CharField(unique=True, max_length=50)
+    repository = models.CharField(max_length=50)
     author = models.CharField(max_length=50)
     author_mail = models.EmailField(max_length=254)
     author_avatar = models.CharField(max_length=50, blank=True)
