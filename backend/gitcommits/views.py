@@ -1,5 +1,5 @@
 import os
-from decouple import Csv, config
+from decouple import config
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 import requests

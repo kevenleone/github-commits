@@ -1,49 +1,81 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import React, { useEffect } from 'react';
+import { Alert } from 'reactstrap';
+import { If, Then, Else } from 'react-if';
+import { useSelector, useDispatch } from 'react-redux';
+import Octicon, { GitCommit } from '@primer/octicons-react';
 import './Commits.scss';
 
 export default function Commits() {
-  const [commits, setCommits] = useState([]);
+  const dispatch = useDispatch();
+  const {
+    base: { avatarDefault },
+    commits: { data: commits },
+  } = useSelector((state) => state);
 
   async function getCommits() {
-    try {
-      const comm = await axios.get(
-        'https://api.github.com/repos/kevenleone/graphscript/commits?sha=master'
-      );
-      setCommits(comm.data);
-    } catch (e) {
-      toast.error(e);
-    }
+    dispatch({ type: 'GET_ALL_COMMITS_SAGA' });
   }
 
   useEffect(() => {
     getCommits();
   }, []);
 
+  const keys = Object.keys(commits);
+
   return (
     <div className="commits">
-      {commits.map((commit, index) => {
-        const {
-          commit: { message },
-        } = commit;
-        const i = index;
-        return (
-          <div key={i} className="commit">
-            <div className="left">
-              <img
-                alt="author"
-                className="authorImg"
-                src="https://avatars2.githubusercontent.com/u/22279592?v=4"
-              />
-            </div>
-            <div className="right">
-              <span className="commit-name">{message}</span>
-              <span className="author">Keven</span>
-            </div>
+      <If condition={Boolean(keys.length)}>
+        <Then>
+          <div className="commits-listing">
+            {keys.map((commitKey) => {
+              return (
+                <>
+                  <div key={commitKey} className="commit-group-title">
+                    <Octicon
+                      className="giticon"
+                      icon={GitCommit}
+                      size={17}
+                      verticalAlign="middle"
+                    />
+                    <p className="commit_date">
+                      Commits on
+                      <span>{commitKey}</span>
+                    </p>
+                  </div>
+                  <ol className="commit-group table-list table-list-bordered">
+                    {commits[commitKey].map((commit, index) => {
+                      const { message, author, author_avatar, created_at } = commit;
+                      const i = index;
+                      return (
+                        <li key={i}>
+                          <div className="commit">
+                            <div className="left">
+                              <img
+                                alt="author"
+                                className="authorImg"
+                                src={author_avatar || avatarDefault}
+                              />
+                            </div>
+                            <div className="right">
+                              <span className="commit_name">
+                                {message.length >= 80 ? `${message.substring(0, 120)}...` : message}
+                              </span>
+                              <span className="author">{author}</span>
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </>
+              );
+            })}
           </div>
-        );
-      })}
+        </Then>
+        <Else>
+          <Alert color="info">No Repository found</Alert>
+        </Else>
+      </If>
     </div>
   );
 }

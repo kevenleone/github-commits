@@ -2,8 +2,14 @@ const path = require('path');
 
 module.exports = {
   extends: 'vinta/recommended',
+  "parser": "babel-eslint",
   "parserOptions": {
-    "ecmaVersion": 2017
+    "ecmaVersion": 2017,
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true,
+      "experimentalObjectRestSpread": true
+  }
   },
   rules: {
     'jest/prefer-inline-snapshots': ['off'],

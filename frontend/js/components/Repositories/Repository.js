@@ -1,36 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { Form, FormGroup, Label, Input, Button, Col, Row } from 'reactstrap';
-import { toast } from 'react-toastify';
+import { useSelector, useDispatch } from 'react-redux';
+import { If, Then, Else } from 'react-if';
+import { Form, Alert, FormGroup, Label, Input, Button, Col, Row } from 'reactstrap';
 import Octicon, { RepoForked, Star } from '@primer/octicons-react';
 
-import api from '../../services';
 import './Repository.scss';
 
 export default function Repository() {
+  const dispatch = useDispatch();
   const [repositoryName, setRepositoryName] = useState('');
-  const [repositories, setRepositories] = useState([]);
-  const [loading, setLoading] = useState(false);
 
-  async function getAllRepositories() {
-    try {
-      const request = await api.get('repository/');
-      setRepositories(request.data);
-      setRepositoryName('');
-    } catch (e) {
-      toast.error(e);
-    }
+  const { data: repositories } = useSelector((state) => state.repositories);
+
+  function getAllRepositories() {
+    dispatch({
+      type: 'GET_ALL_REPOSITORY_SAGA',
+    });
   }
 
-  async function registerRepository(e) {
+  function onSubmit(e) {
     e.preventDefault();
-    setLoading(true);
-    try {
-      await api.post('repository/', { name: repositoryName, user_id: 'kevenleone' });
-      getAllRepositories();
-    } catch (err) {
-      toast.error(err.response.data.message);
-    }
-    setLoading(false);
+    const { login } = window.user;
+    dispatch({
+      type: 'ADD_REPOSITORY_SAGA',
+      payload: { name: repositoryName, user_id: login },
+    });
   }
 
   useEffect(() => {
@@ -39,7 +33,7 @@ export default function Repository() {
 
   return (
     <div className="repositories">
-      <Form onSubmit={registerRepository}>
+      <Form onSubmit={onSubmit}>
         <Row>
           <Col xs={9}>
             <FormGroup>
@@ -52,35 +46,42 @@ export default function Repository() {
             </FormGroup>
           </Col>
           <Col className="register">
-            <Button color="primary" disabled={!repositoryName || loading}>
-              {loading ? 'Loading...' : 'Register'}
-            </Button>
+            <Button color="primary">Register</Button>
           </Col>
         </Row>
-        <Row>
-          <div className="list">
-            {repositories.map((repository) => {
-              const { description, forks, id, name, stars } = repository;
-              return (
-                <div key={id} className="repository">
-                  <span className="title">{name}</span>
-                  <p className="description">{description}</p>
-                  <div className="icons">
-                    <div className="icon">
-                      <Octicon icon={Star} size={25} verticalAlign="middle" />
-                      {` ${stars}`}
-                    </div>
-                    <div className="icon">
-                      <Octicon icon={RepoForked} size={25} verticalAlign="middle" />
-                      {` ${forks}`}
+      </Form>
+      <Row>
+        <If condition={Boolean(repositories.length)}>
+          <Then>
+            <div className="list">
+              {repositories.map((repository) => {
+                const { description, forks, _id: id, name, stars } = repository;
+                return (
+                  <div key={id} className="repository">
+                    <span className="title">{name}</span>
+                    <p className="description">{description}</p>
+                    <div className="icons">
+                      <div className="icon">
+                        <Octicon icon={Star} size={25} verticalAlign="middle" />
+                        {` ${stars}`}
+                      </div>
+                      <div className="icon">
+                        <Octicon icon={RepoForked} size={25} verticalAlign="middle" />
+                        {` ${forks}`}
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-        </Row>
-      </Form>
+                );
+              })}
+            </div>
+          </Then>
+          <Else>
+            <Col>
+              <Alert color="info">Repositories not found, create a new one.</Alert>
+            </Col>
+          </Else>
+        </If>
+      </Row>
     </div>
   );
 }

@@ -1,22 +1,82 @@
 .commits {
+  div.commit_key {
+    margin-top: 15px;
+    margin-left: -31px;
+    color: #586069;
+  }
+
+  div.commit-group-title {
+    margin-top: 15px;
+    margin-left: -7px;
+    color: #586069;
+    display: -webkit-box;
+  }
+
+  .commit-group {
+    margin-top: 5px;
+    list-style-type: none;
+    display: -webkit-flex;
+  }
+
+  .table-list-bordered {
+    border-bottom-color: #eaecef;
+  }
+
+  .table-list {
+    display: table;
+    width: 95%;
+    color: #6a737d;
+    table-layout: fixed;
+    border-bottom: 1px solid #e1e4e8;
+  }
+
+  ol,
+  ul {
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    border: 0.1px solid #e1e4e8;
+    margin-left: 20px;
+    list-style-type: none;
+  }
+
+  p.commit_date {
+    margin-top: -2px;
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+
+    span {
+      color: #666;
+      font-size: 16px;
+      margin-left: 5px;
+    }
+  }
+
   .commit {
-    border: 1px solid #333;
-    padding: 2px;
-    background: #ddd;
-    margin: 10px 0px;
+    padding: 5px;
     display: flex;
     flex-direction: row;
+    border: 0.5px solid #e1e4e8;
 
-    span.commit-name {
-      font-size: 18px;
+
+    span.commit_name {
+      font-size: 16px;
       font-weight: bold;
-      color: #222;
+      color: #333;
+    }
 
+    span.author {
+      font-weight: 500;
+      color: #433
     }
 
     img.authorImg {
-      width: 50px;
-      height: 50px;
+      margin-top: 15px;
+      width: 30px;
+      height: 30px;
+      border-radius: 5px;
     }
 
     .left {
@@ -24,10 +84,22 @@
     }
 
     .right {
-      margin: 5px;
+      margin: 5px 0px 0px 10px;
       display: flex;
       flex-direction: column;
     }
 
   }
+}
+
+div.commits-listing::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 14px;
+  z-index: -1;
+  display: block;
+  width: 2px;
+  content: "";
+  background-color: #eff1f3;
 }
