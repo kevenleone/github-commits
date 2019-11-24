@@ -15,7 +15,8 @@ def index(request):
 
 def login(request):
     if not request.session.get('github_user'):
-        return render(request, 'gitcommits/login.html')
+        client_id = config('GITHUB_CLIENT_ID')
+        return render(request, 'gitcommits/login.html', { 'client_id' : client_id })
     else:
         return HttpResponseRedirect('/')
 
@@ -52,5 +53,3 @@ def authMiddleware(request):
             return HttpResponseRedirect('/login?error_message=invalid_token')
     else:
         return HttpResponseRedirect('/login?error_message=code_not_found')
-
-

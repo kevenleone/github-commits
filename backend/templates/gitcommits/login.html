@@ -12,9 +12,15 @@
   }
 </style>
 
-<script>
+<script type="text/javascript">
   function openOAuth() {
-    window.location.href = `https://github.com/login/oauth/authorize?client_id=437efa9526ca788ce42f`
+    const client_id = "{{client_id}}";
+    if (!client_id) {
+      alert('Error: GITHUB CLIENT_ID is not configured.');
+      return;
+    }
+    const url = `https://github.com/login/oauth/authorize?client_id=${client_id}`;
+    window.location.href = url;
   }
 </script>
 

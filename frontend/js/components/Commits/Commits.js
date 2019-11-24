@@ -29,8 +29,8 @@ export default function Commits() {
           <div className="commits-listing">
             {keys.map((commitKey) => {
               return (
-                <>
-                  <div key={commitKey} className="commit-group-title">
+                <div key={commitKey}>
+                  <div className="commit-group-title">
                     <Octicon
                       className="giticon"
                       icon={GitCommit}
@@ -67,7 +67,7 @@ export default function Commits() {
                       );
                     })}
                   </ol>
-                </>
+                </div>
               );
             })}
           </div>

@@ -25,6 +25,7 @@ export default function Repository() {
       type: 'ADD_REPOSITORY_SAGA',
       payload: { name: repositoryName, user_id: login },
     });
+    setRepositoryName('');
   }
 
   useEffect(() => {
@@ -39,7 +40,7 @@ export default function Repository() {
             <FormGroup>
               <Label>User/Repository</Label>
               <Input
-                placeholder="graphscript"
+                placeholder="kevenleone/graphscript"
                 value={repositoryName}
                 onChange={({ target: { value } }) => setRepositoryName(value)}
               />
