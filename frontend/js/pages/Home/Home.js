@@ -14,7 +14,7 @@ export default function Home() {
       <Header />
       <div className="mainContainer">
         <Row>
-          <Col xs={8}>
+          <Col lg={6} sm={12} xl={8}>
             <h1 className="welcome first">Commits List</h1>
             <Commits />
           </Col>

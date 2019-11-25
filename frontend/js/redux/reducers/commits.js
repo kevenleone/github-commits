@@ -16,6 +16,7 @@ function formatCommitsPerDate(commits) {
 }
 
 export default function commits(state = INITIAL_STATE, action) {
+  // eslint-disable-next-line sonarjs/no-small-switch
   switch (action.type) {
     case 'GET_ALL_COMMITS': {
       const data = formatCommitsPerDate(action.payload);

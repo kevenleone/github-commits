@@ -44,7 +44,7 @@ export default function Commits() {
                   </div>
                   <ol className="commit-group table-list table-list-bordered">
                     {commits[commitKey].map((commit, index) => {
-                      const { message, author, author_avatar, repository, created_at } = commit;
+                      const { message, author, author_avatar, repository } = commit;
                       const i = index;
                       return (
                         <li key={i}>
@@ -75,7 +75,7 @@ export default function Commits() {
           </div>
         </Then>
         <Else>
-          <Alert color="info">No Repository found</Alert>
+          <Alert color="info">No Commits tracked until now</Alert>
         </Else>
       </If>
     </div>

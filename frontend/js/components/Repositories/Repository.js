@@ -40,7 +40,7 @@ export default function Repository() {
     <div className="repositories">
       <Form onSubmit={onSubmit}>
         <Row>
-          <Col xs={9}>
+          <Col lg={8} sm={4} xl={8}>
             <FormGroup>
               <Label>User/Repository</Label>
               <Input
