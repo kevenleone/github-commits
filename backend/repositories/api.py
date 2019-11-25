@@ -28,12 +28,13 @@ class RepositoryViewSet(viewsets.ModelViewSet):
             user_repo = data.json()
 
             description = user_repo["description"] if user_repo["description"] else ''
+            language = user_repo["language"] if user_repo["language"] else ''
 
             repository = Repository(
                 description=description,
                 star=user_repo['stargazers_count'],
                 fork=user_repo['forks_count'],
-                language=user_repo['language'],
+                language=language,
                 name=user_repository,
                 id=user_repo["id"]
             )
