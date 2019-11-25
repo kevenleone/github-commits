@@ -2,7 +2,7 @@ const INITIAL_STATE = {
   data: {},
 };
 
-function formatCommitsPerDate(commits) {
+function orderCommitsPerDate(commits) {
   const dict = {};
   for (const commit of commits) {
     const date = new Date(commit.created_at).toDateString();
@@ -19,7 +19,7 @@ export default function commits(state = INITIAL_STATE, action) {
   // eslint-disable-next-line sonarjs/no-small-switch
   switch (action.type) {
     case 'GET_ALL_COMMITS': {
-      const data = formatCommitsPerDate(action.payload);
+      const data = orderCommitsPerDate(action.payload);
       return { ...state, data };
     }
     default:
