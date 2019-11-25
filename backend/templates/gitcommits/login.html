@@ -15,11 +15,12 @@
 <script type="text/javascript">
   function openOAuth() {
     const client_id = "{{client_id}}";
+    const scope = 'admin:repo_hook'
     if (!client_id) {
       alert('Error: GITHUB CLIENT_ID is not configured.');
       return;
     }
-    const url = `https://github.com/login/oauth/authorize?client_id=${client_id}`;
+    const url = `https://github.com/login/oauth/authorize?client_id=${client_id}&scope=${scope}`;
     window.location.href = url;
   }
 </script>

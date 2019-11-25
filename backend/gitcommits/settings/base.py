@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'users',
     'repositories',
     'commits',
-
+    'gitwrapper',
     'rest_framework'
 ]
 
