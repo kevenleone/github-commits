@@ -3,6 +3,9 @@ import { Alert } from 'reactstrap';
 import { If, Then, Else } from 'react-if';
 import { useSelector, useDispatch } from 'react-redux';
 import Octicon, { GitCommit } from '@primer/octicons-react';
+
+import ws from '../../services/websocket';
+
 import './Commits.scss';
 
 export default function Commits() {
@@ -13,7 +16,11 @@ export default function Commits() {
   } = useSelector((state) => state);
 
   async function getCommits() {
-    dispatch({ type: 'GET_ALL_COMMITS_SAGA' });
+    dispatch({ type: 'GET_ALL_COMMITS_SAGA', payload: { showLoad: true } });
+
+    ws.on('fetchMore', () => {
+      dispatch({ type: 'GET_ALL_COMMITS_SAGA', payload: { showLoad: false } });
+    });
   }
 
   useEffect(() => {
