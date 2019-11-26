@@ -46,7 +46,7 @@ class RepositoryViewSet(viewsets.ModelViewSet):
                 repo=repository
             ).save()
 
-            save_commits_from_repo(user_repository)
+            save_commits_from_repo(user_repository, repository)
 
             return Response(RepositorySerializer(repository).data)
         else:

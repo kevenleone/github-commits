@@ -21,7 +21,7 @@ def get_last_month():
     today = date.today().strftime('%Y-%m-%d')
     return subtract_date_months(today, 1)
 
-def save_commits_from_repo(repository):
+def save_commits_from_repo(repository, repo_object):
     user_repo = github_repos_url + repository
     repo_commits = requests.get(user_repo + '/commits?sha=master')
 
@@ -38,6 +38,7 @@ def save_commits_from_repo(repository):
         if is_after:
             repo = Commit(
                 sha=rc['sha'],
+                repo=repo_object,
                 repository=repository,
                 author=commit['author']['name'],
                 author_mail=commit['author']['email'],
@@ -49,8 +50,6 @@ def save_commits_from_repo(repository):
             insert_count += 1
 
     print("End of process repo: {0}, total of commits: {1} total inserted: {2}".format(repository, len(repo_commits.json()), insert_count))
-
-
 
 def assign_hook(token, repository):
     hooks_url = github_api + '/repos/' + repository + '/hooks'
