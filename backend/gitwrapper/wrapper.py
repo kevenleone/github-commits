@@ -1,22 +1,21 @@
 import requests
 from django.apps import apps
 from datetime import datetime, date
-from dateutil import relativedelta, parser
+import dateutil.relativedelta
+import dateutil.parser
 
 github_api = 'https://api.github.com'
 github_repos_url = github_api + '/repos/'
 webhook = 'http://localhost:8000/api/webhook'
-date_format = '%Y-%m-%d'
 
 Commit = apps.get_model('commits', 'Commit')
 
 def verify_date_between(date1, date2):
-    print(date1, date2, date1 >= date2)
     return date1 >= date2
 
 def subtract_date_months(date, months):
     d = datetime.strptime(date, '%Y-%m-%d')
-    return d - relativedelta.relativedelta(months=months)
+    return d - dateutil.relativedelta.relativedelta(months=months)
 
 def get_last_month():
     today = date.today().strftime('%Y-%m-%d')
@@ -34,7 +33,7 @@ def save_commits_from_repo(repository):
         commit = rc['commit']
         created_at = commit['author']['date']
 
-        is_after = verify_date_between(parser.parse(created_at).replace(tzinfo=None), last_month)
+        is_after = verify_date_between(dateutil.parser.parse(created_at).replace(tzinfo=None), last_month)
 
         if is_after:
             repo = Commit(
