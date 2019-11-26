@@ -16,3 +16,4 @@ ipython
 sentry-sdk
 djangorestframework
 requests
+python-dateutil
