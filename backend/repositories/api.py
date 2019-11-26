@@ -4,10 +4,10 @@ from .serializers import RepositorySerializer, UserRepositorySerializer
 from rest_framework.response import Response
 import requests
 import json
+import sys
 
-from django.apps import apps
-
-Commit = apps.get_model('commits', 'Commit')
+sys.path.append('..')
+from gitwrapper.wrapper import save_commits_from_repo
 
 class RepositoryViewSet(viewsets.ModelViewSet):
     queryset = Repository.objects.all()
@@ -39,29 +39,14 @@ class RepositoryViewSet(viewsets.ModelViewSet):
                 id=user_repo["id"]
             )
 
-            repository.save()
+            repository.save(user_repository)
 
             user_m_repo = UserRepository(
                 user_id=user_id,
                 repo=repository
             ).save()
 
-            repo_commits = requests.get(github_repo_url + '/commits?sha=master')
-
-            for rc in repo_commits.json():
-                author = rc['author']
-                commit = rc['commit']
-
-                repo = Commit(
-                    sha=rc['sha'],
-                    repository=user_repository,
-                    author=commit['author']['name'],
-                    author_mail=commit['author']['email'],
-                    author_avatar=author['avatar_url'] if author else '',
-                    message=commit['message'],
-                    created_at=commit['author']['date']
-                )
-                repo.save()
+            save_commits_from_repo(user_repository)
 
             return Response(RepositorySerializer(repository).data)
         else:
