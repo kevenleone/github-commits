@@ -4,7 +4,7 @@ import { If, Then, Else } from 'react-if';
 import { useSelector, useDispatch } from 'react-redux';
 import Octicon, { GitCommit } from '@primer/octicons-react';
 
-import ws from '../../services/websocket';
+import pusher from '../../services/pusher';
 
 import './Commits.scss';
 
@@ -18,8 +18,10 @@ export default function Commits() {
   async function getCommits() {
     dispatch({ type: 'GET_ALL_COMMITS_SAGA', payload: { showLoad: true } });
 
-    ws.on('fetchMore', () => {
+    const channel = pusher.subscribe('github');
+    channel.bind('refresh-commit', (data) => {
       dispatch({ type: 'GET_ALL_COMMITS_SAGA', payload: { showLoad: false } });
+      console.log(`Receiving refresh-commit, payload: ${data}`);
     });
   }
 

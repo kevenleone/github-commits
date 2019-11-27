@@ -11,7 +11,9 @@
 {% block loadscript %}
 
  <script type="text/javascript">
+  const pusher = "{{pusher_key}}"
   window.user = JSON.parse({{user|safe}})
+  window.pusher_key = pusher;
 </script>
 
 {% endblock %}

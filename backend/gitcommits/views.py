@@ -7,8 +7,9 @@ import json
 
 def index(request):
     if request.session.get('github_user'):
+        pusher_key = config('PUSHER_APP_KEY')
         user = json.dumps(request.session['github_user'])
-        context = { 'user' : user }
+        context = { 'user' : user, 'pusher_key' : pusher_key }
         return render(request, 'gitcommits/index.html', context )
     else:
         return HttpResponseRedirect('/login')
