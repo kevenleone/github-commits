@@ -9,8 +9,12 @@ export function* addRepository(action) {
 
   try {
     const response = yield call(api.post, '/repository/', action.payload);
-    yield put({ type: 'ADD_REPOSITORY', payload: response.data });
-    yield call(getAllCommits);
+    if (!response.data.message) {
+      yield put({ type: 'ADD_REPOSITORY', payload: response.data });
+      yield call(getAllCommits);
+    } else {
+      yield put({ type: 'OBS', payload: response.data.message });
+    }
   } catch (e) {
     yield put({ type: 'ERROR', payload: e });
   } finally {

@@ -15,7 +15,7 @@ export default function Commits() {
     commits: { data: commits },
   } = useSelector((state) => state);
 
-  async function getCommits() {
+  function getCommits() {
     dispatch({ type: 'GET_ALL_COMMITS_SAGA', payload: { showLoad: true } });
 
     const channel = pusher.subscribe('github');

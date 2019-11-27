@@ -10,5 +10,5 @@ pusher_client = pusher.Pusher(
 )
 
 def send_pusher(channel, event, data):
-    pusher_client.trigger(channel, event, data)
+    # pusher_client.trigger(channel, event, data)
     print("Sending pusher to channel: {0}, event: {1}".format(channel, event))
