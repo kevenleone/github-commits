@@ -13,6 +13,7 @@ exports[`App should render with success 1`] = `
       }
     }
   >
+    <Header />
     <ToastContainer
       autoClose={5000}
       bodyClassName={null}
@@ -39,7 +40,7 @@ exports[`App should render with success 1`] = `
       transition={[Function]}
     />
     <Load />
-    <Home />
+    <Routes />
   </Provider>
 </ExampleBoundary>
 `;

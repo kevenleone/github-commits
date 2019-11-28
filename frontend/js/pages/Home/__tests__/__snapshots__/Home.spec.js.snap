@@ -17,124 +17,6 @@ exports[`Home should render with success 1`] = `
     <div
       className="HomePage"
     >
-      <Header>
-        <div
-          className="HeaderComponent"
-        >
-          <Navbar
-            color="dark"
-            dark={true}
-            expand="md"
-            tag="nav"
-          >
-            <nav
-              className="navbar navbar-expand-md navbar-dark bg-dark"
-            >
-              <NavbarBrand
-                href="/"
-                tag="a"
-              >
-                <a
-                  className="navbar-brand"
-                  href="/"
-                >
-                  GitHub Commits
-                </a>
-              </NavbarBrand>
-              <NavbarToggler
-                onClick={[Function]}
-                tag="button"
-                type="button"
-              >
-                <button
-                  aria-label="Toggle navigation"
-                  className="navbar-toggler"
-                  onClick={[Function]}
-                  type="button"
-                >
-                  <span
-                    className="navbar-toggler-icon"
-                  />
-                </button>
-              </NavbarToggler>
-              <Collapse
-                appear={false}
-                enter={true}
-                exit={true}
-                in={false}
-                isOpen={false}
-                mountOnEnter={false}
-                navbar={true}
-                onEnter={[Function]}
-                onEntered={[Function]}
-                onEntering={[Function]}
-                onExit={[Function]}
-                onExited={[Function]}
-                onExiting={[Function]}
-                tag="div"
-                timeout={350}
-                unmountOnExit={false}
-              >
-                <Transition
-                  appear={false}
-                  enter={true}
-                  exit={true}
-                  in={false}
-                  mountOnEnter={false}
-                  onEnter={[Function]}
-                  onEntered={[Function]}
-                  onEntering={[Function]}
-                  onExit={[Function]}
-                  onExited={[Function]}
-                  onExiting={[Function]}
-                  timeout={350}
-                  unmountOnExit={false}
-                >
-                  <div
-                    aria-expanded="false"
-                    className="collapse navbar-collapse"
-                    style={Object {}}
-                  >
-                    <Nav
-                      className="mr-auto"
-                      navbar={true}
-                      tag="ul"
-                      vertical={false}
-                    >
-                      <ul
-                        className="mr-auto navbar-nav"
-                      />
-                    </Nav>
-                    <p
-                      className="user_name"
-                    >
-                      <span
-                        className="name"
-                      >
-                        Welcome, 
-                        Keven
-                      </span>
-                       
-                      <br />
-                      <button
-                        className="logout"
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        Logout
-                      </button>
-                    </p>
-                    <img
-                      alt="user"
-                      className="user_avatar"
-                    />
-                  </div>
-                </Transition>
-              </Collapse>
-            </nav>
-          </Navbar>
-        </div>
-      </Header>
       <div
         className="mainContainer"
       >
@@ -167,63 +49,49 @@ exports[`Home should render with success 1`] = `
                 >
                   Commits List
                 </h1>
-                <Commits>
-                  <div
-                    className="commits"
+                <RootCommits>
+                  <Commits
+                    commits={Array []}
                   >
-                    <If
-                      condition={false}
+                    <div
+                      className="commits"
                     >
-                      <Else>
-                        <Alert
-                          closeAriaLabel="Close"
-                          color="info"
-                          fade={true}
-                          isOpen={true}
-                          tag="div"
-                          transition={
-                            Object {
-                              "appear": true,
-                              "baseClass": "fade",
-                              "baseClassActive": "show",
-                              "enter": true,
-                              "exit": true,
-                              "in": true,
-                              "mountOnEnter": false,
-                              "onEnter": [Function],
-                              "onEntered": [Function],
-                              "onEntering": [Function],
-                              "onExit": [Function],
-                              "onExited": [Function],
-                              "onExiting": [Function],
-                              "tag": "div",
-                              "timeout": 150,
-                              "unmountOnExit": true,
-                            }
-                          }
-                        >
-                          <Fade
-                            appear={true}
-                            baseClass="fade"
-                            baseClassActive="show"
-                            className="alert alert-info"
-                            enter={true}
-                            exit={true}
-                            in={true}
-                            mountOnEnter={false}
-                            onEnter={[Function]}
-                            onEntered={[Function]}
-                            onEntering={[Function]}
-                            onExit={[Function]}
-                            onExited={[Function]}
-                            onExiting={[Function]}
-                            role="alert"
+                      <If
+                        condition={false}
+                      >
+                        <Else>
+                          <Alert
+                            closeAriaLabel="Close"
+                            color="info"
+                            fade={true}
+                            isOpen={true}
                             tag="div"
-                            timeout={150}
-                            unmountOnExit={true}
+                            transition={
+                              Object {
+                                "appear": true,
+                                "baseClass": "fade",
+                                "baseClassActive": "show",
+                                "enter": true,
+                                "exit": true,
+                                "in": true,
+                                "mountOnEnter": false,
+                                "onEnter": [Function],
+                                "onEntered": [Function],
+                                "onEntering": [Function],
+                                "onExit": [Function],
+                                "onExited": [Function],
+                                "onExiting": [Function],
+                                "tag": "div",
+                                "timeout": 150,
+                                "unmountOnExit": true,
+                              }
+                            }
                           >
-                            <Transition
+                            <Fade
                               appear={true}
+                              baseClass="fade"
+                              baseClassActive="show"
+                              className="alert alert-info"
                               enter={true}
                               exit={true}
                               in={true}
@@ -234,22 +102,40 @@ exports[`Home should render with success 1`] = `
                               onExit={[Function]}
                               onExited={[Function]}
                               onExiting={[Function]}
+                              role="alert"
+                              tag="div"
                               timeout={150}
                               unmountOnExit={true}
                             >
-                              <div
-                                className="alert alert-info fade"
-                                role="alert"
+                              <Transition
+                                appear={true}
+                                enter={true}
+                                exit={true}
+                                in={true}
+                                mountOnEnter={false}
+                                onEnter={[Function]}
+                                onEntered={[Function]}
+                                onEntering={[Function]}
+                                onExit={[Function]}
+                                onExited={[Function]}
+                                onExiting={[Function]}
+                                timeout={150}
+                                unmountOnExit={true}
                               >
-                                No Commits tracked until now
-                              </div>
-                            </Transition>
-                          </Fade>
-                        </Alert>
-                      </Else>
-                    </If>
-                  </div>
-                </Commits>
+                                <div
+                                  className="alert alert-info fade"
+                                  role="alert"
+                                >
+                                  No Commits tracked until now
+                                </div>
+                              </Transition>
+                            </Fade>
+                          </Alert>
+                        </Else>
+                      </If>
+                    </div>
+                  </Commits>
+                </RootCommits>
               </div>
             </Col>
             <Col
