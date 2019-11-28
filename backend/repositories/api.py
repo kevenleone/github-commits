@@ -2,12 +2,17 @@ from .models import Repository, UserRepository
 from rest_framework import viewsets, permissions, serializers
 from .serializers import RepositorySerializer, UserRepositorySerializer
 from rest_framework.response import Response
+from django.apps import apps
+from pytz import timezone
 import requests
 import json
 import sys
 
 sys.path.append('..')
-from gitwrapper.wrapper import save_commits_from_repo
+from gitwrapper.wrapper import save_commits_from_repo, get_last_month
+from commits.serializers import CommitSerializer
+
+CommitsModel = apps.get_model('commits', 'Commit')
 
 class RepositoryViewSet(viewsets.ModelViewSet):
     queryset = Repository.objects.all()
@@ -50,8 +55,38 @@ class RepositoryViewSet(viewsets.ModelViewSet):
             return Response(repository_serialized)
         else: return Response( repository_serialized if new_u_r else { 'message' : 'Repository already exists'})
 
-    def retrieve(self, request, pk):
-        repositoriesIds = UserRepository.objects.filter(user_id=pk).values_list('repo_id')
-        repositories = Repository.objects.filter(id__in=repositoriesIds)
+    def list(self, request):
+        if request.session.get('github_user'):
+            github_user = json.loads(request.session['github_user'])
+            user = github_user['login']
+            repositoriesIds = UserRepository.objects.filter(user_id=user).values_list('repo_id')
+            repositories = Repository.objects.filter(id__in=repositoriesIds)
+        else:
+            repositories = self.queryset
         serializer = RepositorySerializer(repositories, many=True)
         return Response(serializer.data)
+
+    def retrieve(self, request, pk):
+        repo_name = pk.replace('*' , '/')
+
+        last_month = get_last_month()
+        last_month_utc = last_month.replace(tzinfo=timezone('UTC'))
+
+        try:
+            repository = Repository.objects.get(name=repo_name)
+            repositories_serialized = RepositorySerializer(repository).data
+            repository_id = repositories_serialized['id']
+
+            repositoriesIds = UserRepository.objects.filter(repo_id=repository_id).values_list('repo_id')
+            _queryset = CommitsModel.objects.filter(created_at__gte=last_month_utc, repo_id__in=repositoriesIds).order_by('-created_at')
+
+            commits_serialized = CommitSerializer(_queryset, many=True).data
+
+            context = {
+                'repository' : repositories_serialized,
+                'commits' : commits_serialized
+            }
+
+            return Response(context)
+        except Repository.DoesNotExist:
+            raise serializers.ValidationError({'message': 'Repository not found'})

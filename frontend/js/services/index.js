@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const baseURL = window.location.href;
-// const baseURL = `http://localhost:3333/`; // mock api
+const { protocol, host } = window.location;
+const baseURL = `${protocol}//${host}/api`;
 
-const api = axios.create({ baseURL: `${baseURL}api` });
+const api = axios.create({ baseURL });
 export { baseURL };
 export default api;

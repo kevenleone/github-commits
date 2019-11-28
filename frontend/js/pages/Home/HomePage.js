@@ -2,16 +2,14 @@ import React from 'react';
 import { Row, Col } from 'reactstrap';
 import Octicon, { MarkGithub } from '@primer/octicons-react';
 
-import { Header } from '../../components/Header';
-import { Commits } from '../../components/Commits';
+import Commits from '../../components/Commits';
 import { Repositories } from '../../components/Repositories';
 
-import './Home.scss';
+import './HomePage.scss';
 
 export default function Home() {
   return (
     <div className="HomePage">
-      <Header />
       <div className="mainContainer">
         <Row>
           <Col lg={6} sm={12} xl={8}>

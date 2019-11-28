@@ -1,34 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Alert } from 'reactstrap';
+import PropTypes from 'prop-types';
 import { If, Then, Else } from 'react-if';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Octicon, { GitCommit } from '@primer/octicons-react';
-
-import pusher from '../../services/pusher';
+import { Link } from 'react-router-dom';
 
 import './Commits.scss';
 
-export default function Commits() {
-  const dispatch = useDispatch();
+function Commits(props) {
+  const { commits } = props;
   const {
     base: { avatarDefault },
-    commits: { data: commits },
   } = useSelector((state) => state);
-
-  function getCommits() {
-    dispatch({ type: 'GET_ALL_COMMITS_SAGA', payload: { showLoad: true } });
-
-    const channel = pusher.subscribe('github');
-    channel.bind('refresh-commit', (data) => {
-      dispatch({ type: 'GET_ALL_COMMITS_SAGA', payload: { showLoad: false } });
-      console.log(`Receiving refresh-commit, payload: ${data}`);
-    });
-  }
-
-  useEffect(() => {
-    getCommits();
-  }, []);
-
   const keys = Object.keys(commits);
 
   return (
@@ -67,10 +51,13 @@ export default function Commits() {
                             </div>
                             <div className="right">
                               <span className="commit_name">
-                                {message.length >= 80 ? `${message.substring(0, 120)}...` : message}
+                                {message && message.length >= 80
+                                  ? `${message.substring(0, 120)}...`
+                                  : message}
                               </span>
                               <span className="author">
-                                {author} at <small>[{repository}]</small>
+                                {author} at{' '}
+                                <Link to={`/repository/${repository}`}>[{repository}]</Link>
                               </span>
                             </div>
                           </div>
@@ -90,3 +77,13 @@ export default function Commits() {
     </div>
   );
 }
+
+Commits.propTypes = {
+  commits: PropTypes.any,
+};
+
+Commits.defaultProps = {
+  commits: {},
+};
+
+export default Commits;

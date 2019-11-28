@@ -5,17 +5,19 @@ import { Provider } from 'react-redux';
 
 import SentryBoundary from './utils/SentryBoundary';
 import Load from './components/Load/Load';
-import { Home } from './pages/Home';
 import store from './redux/store';
+import Header from './components/Header/Header';
 import './bootstrap-includes';
 import 'react-toastify/dist/ReactToastify.css';
+import Routes from './routes';
 
 const App = () => (
   <SentryBoundary>
     <Provider store={store}>
+      <Header />
       <ToastContainer />
       <Load />
-      <Home />
+      <Routes />
     </Provider>
   </SentryBoundary>
 );

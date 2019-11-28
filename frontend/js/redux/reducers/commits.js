@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
   data: {},
+  repository_commits: {},
 };
 
 function orderCommitsPerDate(commits) {
@@ -21,6 +22,10 @@ export default function commits(state = INITIAL_STATE, action) {
     case 'GET_ALL_COMMITS': {
       const data = orderCommitsPerDate(action.payload);
       return { ...state, data };
+    }
+    case 'GET_COMMIT_FROM_REPO': {
+      const repository_commits = orderCommitsPerDate(action.payload);
+      return { ...state, repository_commits };
     }
     default:
       return state;

@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <div className="HeaderComponent">
       <Navbar color="dark" dark expand="md">
-        <NavbarBrand href="/">GitHub Commits</NavbarBrand>
+        <NavbarBrand href="/#/">GitHub Commits</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar />

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { If, Then, Else } from 'react-if';
-import Octicon, { RepoForked, Star } from '@primer/octicons-react';
 import { Form, Alert, FormGroup, Label, Input, Button, Col, Row } from 'reactstrap';
 
+import { RepositoryCard } from '../RepositoryCard';
 import './Repository.scss';
 
 export default function Repository() {
@@ -62,24 +62,8 @@ export default function Repository() {
           <Then>
             <div className="list">
               {repositories.map((repository, index) => {
-                const { description, fork, name, star } = repository;
                 const i = index;
-                return (
-                  <div key={i} className="repository">
-                    <span className="title">{name}</span>
-                    <p className="description">{description}</p>
-                    <div className="icons">
-                      <div className="icon">
-                        <Octicon icon={Star} size={25} verticalAlign="middle" />
-                        {` ${star}`}
-                      </div>
-                      <div className="icon">
-                        <Octicon icon={RepoForked} size={25} verticalAlign="middle" />
-                        {` ${fork}`}
-                      </div>
-                    </div>
-                  </div>
-                );
+                return <RepositoryCard key={i} repository={repository} />;
               })}
             </div>
           </Then>

@@ -22,12 +22,26 @@ export function* addRepository(action) {
   }
 }
 
-export function* getAllRepositories(action) {
+export function* getAllRepositories() {
   yield put({ type: 'SET_LOADING' });
 
   try {
-    const response = yield call(api.get, `/repository/${action.payload.user_id}`);
+    const response = yield call(api.get, `/repository/`);
     yield put({ type: 'GET_ALL_REPOSITORIES', payload: response.data });
+  } catch (e) {
+    yield put({ type: 'ERROR', payload: e });
+  } finally {
+    yield put({ type: 'SET_LOADING' });
+  }
+}
+
+export function* getRepository(action) {
+  yield put({ type: 'SET_LOADING' });
+
+  try {
+    const response = yield call(api.get, `/repository/${action.payload}`);
+    yield put({ type: 'GET_REPOSITORY', payload: response.data.repository });
+    yield put({ type: 'GET_COMMIT_FROM_REPO', payload: response.data.commits });
   } catch (e) {
     yield put({ type: 'ERROR', payload: e });
   } finally {
