@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Load should render with success 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <Load>
+    <When
+      condition={true}
+    >
+      <div
+        className="Load"
+      >
+        <div
+          className="background"
+        />
+        <div
+          className="image"
+        >
+          <div
+            className="LoadImage lds-css"
+          >
+            <div
+              className="lds-rolling"
+            >
+              <div />
+            </div>
+          </div>
+          <h5
+            className="text-center pl-3 pr-3"
+          >
+            Loading
+          </h5>
+        </div>
+      </div>
+    </When>
+  </Load>
+</Provider>
+`;

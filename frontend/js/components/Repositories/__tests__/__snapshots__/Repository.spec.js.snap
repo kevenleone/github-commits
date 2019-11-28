@@ -1,0 +1,474 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Repositories should render with success 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <Repository>
+    <div
+      className="repositories"
+    >
+      <Form
+        onSubmit={[Function]}
+        tag="form"
+      >
+        <form
+          className=""
+          onSubmit={[Function]}
+        >
+          <Row
+            tag="div"
+          >
+            <div
+              className="row"
+            >
+              <Col
+                lg={8}
+                sm={4}
+                tag="div"
+                widths={
+                  Array [
+                    "xs",
+                    "sm",
+                    "md",
+                    "lg",
+                    "xl",
+                  ]
+                }
+                xl={8}
+              >
+                <div
+                  className="col-sm-4 col-lg-8 col-xl-8"
+                >
+                  <FormGroup
+                    tag="div"
+                  >
+                    <div
+                      className="form-group"
+                    >
+                      <Label
+                        tag="label"
+                        widths={
+                          Array [
+                            "xs",
+                            "sm",
+                            "md",
+                            "lg",
+                            "xl",
+                          ]
+                        }
+                      >
+                        <label
+                          className=""
+                        >
+                          User/Repository
+                        </label>
+                      </Label>
+                      <Input
+                        onChange={[Function]}
+                        placeholder="kevenleone/graphscript"
+                        type="text"
+                        value=""
+                      >
+                        <input
+                          className="form-control"
+                          onChange={[Function]}
+                          placeholder="kevenleone/graphscript"
+                          type="text"
+                          value=""
+                        />
+                      </Input>
+                    </div>
+                  </FormGroup>
+                </div>
+              </Col>
+              <Col
+                className="register"
+                tag="div"
+                widths={
+                  Array [
+                    "xs",
+                    "sm",
+                    "md",
+                    "lg",
+                    "xl",
+                  ]
+                }
+              >
+                <div
+                  className="register col"
+                >
+                  <Button
+                    color="primary"
+                    disabled={true}
+                    tag="button"
+                  >
+                    <button
+                      aria-label={null}
+                      className="btn btn-primary disabled"
+                      disabled={true}
+                      onClick={[Function]}
+                    >
+                      Register
+                    </button>
+                  </Button>
+                </div>
+              </Col>
+            </div>
+          </Row>
+        </form>
+      </Form>
+      <Row
+        tag="div"
+      >
+        <div
+          className="row"
+        >
+          <If
+            condition={false}
+          >
+            <Else>
+              <Col
+                tag="div"
+                widths={
+                  Array [
+                    "xs",
+                    "sm",
+                    "md",
+                    "lg",
+                    "xl",
+                  ]
+                }
+              >
+                <div
+                  className="col"
+                >
+                  <Alert
+                    closeAriaLabel="Close"
+                    color="info"
+                    fade={true}
+                    isOpen={true}
+                    tag="div"
+                    transition={
+                      Object {
+                        "appear": true,
+                        "baseClass": "fade",
+                        "baseClassActive": "show",
+                        "enter": true,
+                        "exit": true,
+                        "in": true,
+                        "mountOnEnter": false,
+                        "onEnter": [Function],
+                        "onEntered": [Function],
+                        "onEntering": [Function],
+                        "onExit": [Function],
+                        "onExited": [Function],
+                        "onExiting": [Function],
+                        "tag": "div",
+                        "timeout": 150,
+                        "unmountOnExit": true,
+                      }
+                    }
+                  >
+                    <Fade
+                      appear={true}
+                      baseClass="fade"
+                      baseClassActive="show"
+                      className="alert alert-info"
+                      enter={true}
+                      exit={true}
+                      in={true}
+                      mountOnEnter={false}
+                      onEnter={[Function]}
+                      onEntered={[Function]}
+                      onEntering={[Function]}
+                      onExit={[Function]}
+                      onExited={[Function]}
+                      onExiting={[Function]}
+                      role="alert"
+                      tag="div"
+                      timeout={150}
+                      unmountOnExit={true}
+                    >
+                      <Transition
+                        appear={true}
+                        enter={true}
+                        exit={true}
+                        in={true}
+                        mountOnEnter={false}
+                        onEnter={[Function]}
+                        onEntered={[Function]}
+                        onEntering={[Function]}
+                        onExit={[Function]}
+                        onExited={[Function]}
+                        onExiting={[Function]}
+                        timeout={150}
+                        unmountOnExit={true}
+                      >
+                        <div
+                          className="alert alert-info fade"
+                          role="alert"
+                        >
+                          Repositories not found, create a new one.
+                        </div>
+                      </Transition>
+                    </Fade>
+                  </Alert>
+                </div>
+              </Col>
+            </Else>
+          </If>
+        </div>
+      </Row>
+    </div>
+  </Repository>
+</Provider>
+`;
+
+exports[`Repositories should render with success and rows 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <Repository>
+    <div
+      className="repositories"
+    >
+      <Form
+        onSubmit={[Function]}
+        tag="form"
+      >
+        <form
+          className=""
+          onSubmit={[Function]}
+        >
+          <Row
+            tag="div"
+          >
+            <div
+              className="row"
+            >
+              <Col
+                lg={8}
+                sm={4}
+                tag="div"
+                widths={
+                  Array [
+                    "xs",
+                    "sm",
+                    "md",
+                    "lg",
+                    "xl",
+                  ]
+                }
+                xl={8}
+              >
+                <div
+                  className="col-sm-4 col-lg-8 col-xl-8"
+                >
+                  <FormGroup
+                    tag="div"
+                  >
+                    <div
+                      className="form-group"
+                    >
+                      <Label
+                        tag="label"
+                        widths={
+                          Array [
+                            "xs",
+                            "sm",
+                            "md",
+                            "lg",
+                            "xl",
+                          ]
+                        }
+                      >
+                        <label
+                          className=""
+                        >
+                          User/Repository
+                        </label>
+                      </Label>
+                      <Input
+                        onChange={[Function]}
+                        placeholder="kevenleone/graphscript"
+                        type="text"
+                        value="My new value"
+                      >
+                        <input
+                          className="form-control"
+                          onChange={[Function]}
+                          placeholder="kevenleone/graphscript"
+                          type="text"
+                          value="My new value"
+                        />
+                      </Input>
+                    </div>
+                  </FormGroup>
+                </div>
+              </Col>
+              <Col
+                className="register"
+                tag="div"
+                widths={
+                  Array [
+                    "xs",
+                    "sm",
+                    "md",
+                    "lg",
+                    "xl",
+                  ]
+                }
+              >
+                <div
+                  className="register col"
+                >
+                  <Button
+                    color="primary"
+                    disabled={false}
+                    tag="button"
+                  >
+                    <button
+                      aria-label={null}
+                      className="btn btn-primary"
+                      disabled={false}
+                      onClick={[Function]}
+                    >
+                      Register
+                    </button>
+                  </Button>
+                </div>
+              </Col>
+            </div>
+          </Row>
+        </form>
+      </Form>
+      <Row
+        tag="div"
+      >
+        <div
+          className="row"
+        >
+          <If
+            condition={true}
+          >
+            <Then>
+              <div
+                className="list"
+              >
+                <div
+                  className="repository"
+                  key="0"
+                >
+                  <span
+                    className="title"
+                  >
+                    kevenleone/graphscript
+                  </span>
+                  <p
+                    className="description"
+                  >
+                    A GraphQL Boilerplate with Typescript and TypeORM
+                  </p>
+                  <div
+                    className="icons"
+                  >
+                    <div
+                      className="icon"
+                    >
+                      <Octicon
+                        className="octicon"
+                        icon={[Function]}
+                        size={25}
+                        verticalAlign="middle"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="octicon"
+                          height={25}
+                          role="img"
+                          style={
+                            Object {
+                              "display": "inline-block",
+                              "fill": "currentColor",
+                              "userSelect": "none",
+                              "verticalAlign": "middle",
+                            }
+                          }
+                          viewBox="0 0 14 16"
+                          width={21.875}
+                        >
+                          <Star>
+                            <path
+                              d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"
+                              fillRule="evenodd"
+                            />
+                          </Star>
+                        </svg>
+                      </Octicon>
+                       9
+                    </div>
+                    <div
+                      className="icon"
+                    >
+                      <Octicon
+                        className="octicon"
+                        icon={[Function]}
+                        size={25}
+                        verticalAlign="middle"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="octicon"
+                          height={25}
+                          role="img"
+                          style={
+                            Object {
+                              "display": "inline-block",
+                              "fill": "currentColor",
+                              "userSelect": "none",
+                              "verticalAlign": "middle",
+                            }
+                          }
+                          viewBox="0 0 10 16"
+                          width={15.625}
+                        >
+                          <RepoForked>
+                            <path
+                              d="M8 1a1.993 1.993 0 00-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 002 1a1.993 1.993 0 00-1 3.72V6.5l3 3v1.78A1.993 1.993 0 005 15a1.993 1.993 0 001-3.72V9.5l3-3V4.72A1.993 1.993 0 008 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"
+                              fillRule="evenodd"
+                            />
+                          </RepoForked>
+                        </svg>
+                      </Octicon>
+                       9
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Then>
+          </If>
+        </div>
+      </Row>
+    </div>
+  </Repository>
+</Provider>
+`;

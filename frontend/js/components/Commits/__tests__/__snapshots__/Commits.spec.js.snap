@@ -1,0 +1,256 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Commits should render with success 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <Commits>
+    <div
+      className="commits"
+    >
+      <If
+        condition={false}
+      >
+        <Else>
+          <Alert
+            closeAriaLabel="Close"
+            color="info"
+            fade={true}
+            isOpen={true}
+            tag="div"
+            transition={
+              Object {
+                "appear": true,
+                "baseClass": "fade",
+                "baseClassActive": "show",
+                "enter": true,
+                "exit": true,
+                "in": true,
+                "mountOnEnter": false,
+                "onEnter": [Function],
+                "onEntered": [Function],
+                "onEntering": [Function],
+                "onExit": [Function],
+                "onExited": [Function],
+                "onExiting": [Function],
+                "tag": "div",
+                "timeout": 150,
+                "unmountOnExit": true,
+              }
+            }
+          >
+            <Fade
+              appear={true}
+              baseClass="fade"
+              baseClassActive="show"
+              className="alert alert-info"
+              enter={true}
+              exit={true}
+              in={true}
+              mountOnEnter={false}
+              onEnter={[Function]}
+              onEntered={[Function]}
+              onEntering={[Function]}
+              onExit={[Function]}
+              onExited={[Function]}
+              onExiting={[Function]}
+              role="alert"
+              tag="div"
+              timeout={150}
+              unmountOnExit={true}
+            >
+              <Transition
+                appear={true}
+                enter={true}
+                exit={true}
+                in={true}
+                mountOnEnter={false}
+                onEnter={[Function]}
+                onEntered={[Function]}
+                onEntering={[Function]}
+                onExit={[Function]}
+                onExited={[Function]}
+                onExiting={[Function]}
+                timeout={150}
+                unmountOnExit={true}
+              >
+                <div
+                  className="alert alert-info fade"
+                  role="alert"
+                >
+                  No Commits tracked until now
+                </div>
+              </Transition>
+            </Fade>
+          </Alert>
+        </Else>
+      </If>
+    </div>
+  </Commits>
+</Provider>
+`;
+
+exports[`Commits should render with success and rows 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <Commits>
+    <div
+      className="commits"
+    >
+      <If
+        condition={true}
+      >
+        <Then>
+          <div
+            className="commits-listing"
+          >
+            <div
+              key="Wed Nov 27 2019"
+            >
+              <div
+                className="commit-group-title"
+              >
+                <Octicon
+                  className="giticon"
+                  icon={[Function]}
+                  size={17}
+                  verticalAlign="middle"
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="giticon"
+                    height={17}
+                    role="img"
+                    style={
+                      Object {
+                        "display": "inline-block",
+                        "fill": "currentColor",
+                        "userSelect": "none",
+                        "verticalAlign": "middle",
+                      }
+                    }
+                    viewBox="0 0 14 16"
+                    width={14.875}
+                  >
+                    <GitCommit>
+                      <path
+                        d="M10.86 7c-.45-1.72-2-3-3.86-3-1.86 0-3.41 1.28-3.86 3H0v2h3.14c.45 1.72 2 3 3.86 3 1.86 0 3.41-1.28 3.86-3H14V7h-3.14zM7 10.2c-1.22 0-2.2-.98-2.2-2.2 0-1.22.98-2.2 2.2-2.2 1.22 0 2.2.98 2.2 2.2 0 1.22-.98 2.2-2.2 2.2z"
+                        fillRule="evenodd"
+                      />
+                    </GitCommit>
+                  </svg>
+                </Octicon>
+                <p
+                  className="commit_date"
+                >
+                  Commits on
+                  <span>
+                    Wed Nov 27 2019
+                  </span>
+                </p>
+              </div>
+              <ol
+                className="commit-group table-list table-list-bordered"
+              >
+                <li
+                  key="0"
+                >
+                  <div
+                    className="commit"
+                  >
+                    <div
+                      className="left"
+                    >
+                      <img
+                        alt="author"
+                        className="authorImg"
+                        src="lalala.jpg"
+                      />
+                    </div>
+                    <div
+                      className="right"
+                    >
+                      <span
+                        className="commit_name"
+                      >
+                        This is a test
+                      </span>
+                      <span
+                        className="author"
+                      >
+                        Keven Leone
+                         at 
+                        <small>
+                          [
+                          GitHub Commits
+                          ]
+                        </small>
+                      </span>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  key="1"
+                >
+                  <div
+                    className="commit"
+                  >
+                    <div
+                      className="left"
+                    >
+                      <img
+                        alt="author"
+                        className="authorImg"
+                        src="lalala.jpg"
+                      />
+                    </div>
+                    <div
+                      className="right"
+                    >
+                      <span
+                        className="commit_name"
+                      >
+                        This is a big text This is a big text This is a big text This is a big text This is a big text ...
+                      </span>
+                      <span
+                        className="author"
+                      >
+                        Keven Leone
+                         at 
+                        <small>
+                          [
+                          GitHub Commits
+                          ]
+                        </small>
+                      </span>
+                    </div>
+                  </div>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </Then>
+      </If>
+    </div>
+  </Commits>
+</Provider>
+`;

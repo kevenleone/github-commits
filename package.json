@@ -6,7 +6,7 @@
   "main": "index.js",
   "prettier": "eslint-config-vinta/prettier",
   "scripts": {
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "test:watch": "npm test -- --watch",
     "start": "npm-run-all -p start:*",
     "start:server": "python3 backend/manage.py runserver",
