@@ -2,7 +2,7 @@ import { put, call } from 'redux-saga/effects';
 
 import api from '../../services';
 
-function shouldShowLoading(action = {}) {
+export function shouldShowLoading(action = {}) {
   return action && action.payload && action.payload.showLoad ? action.payload.showLoad : false;
 }
 

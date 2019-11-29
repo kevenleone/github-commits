@@ -10,7 +10,10 @@ const INITIAL_STATE = {
 export default function baseWrapper(state = INITIAL_STATE, action) {
   switch (action.type) {
     case 'ERROR': {
-      const error = action.payload.response.data.message || action.payload.message;
+      const error =
+        action.payload.response && action.payload.response.data.message
+          ? action.payload.response.data.message
+          : action.payload.message;
       toast.error(error);
       return { ...state, error };
     }
