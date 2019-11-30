@@ -33,6 +33,9 @@ pylint:
     - invalid-name
     - no-self-use
     - no-member
+    - relative-beyond-top-level
+    - import-self
+    - too-many-ancestors
   options:
     max-line-length: 100
 

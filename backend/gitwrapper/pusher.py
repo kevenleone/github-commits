@@ -1,7 +1,7 @@
 from decouple import config
-import pusher
+from pusher import Pusher
 
-pusher_client = pusher.Pusher(
+pusher_client = Pusher(
     app_id=config('PUSHER_APP_ID'),
     key=config('PUSHER_APP_KEY'),
     secret=config('PUSHER_APP_SECRET'),
@@ -9,6 +9,13 @@ pusher_client = pusher.Pusher(
     ssl=True
 )
 
+
 def send_pusher(channel, event, data):
-    # pusher_client.trigger(channel, event, data)
-    print("Sending pusher to channel: {0}, event: {1}".format(channel, event))
+    sendpush = config('PUSHER_SEND_PUSH')
+    if sendpush:
+        pusher_client.trigger(channel, event, data)
+
+    print("Sending pusher to channel: {0}, event: {1}".format(
+        channel,
+        event
+    ))

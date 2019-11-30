@@ -1,6 +1,6 @@
+from datetime import datetime, date
 import requests
 from django.apps import apps
-from datetime import datetime, date
 import dateutil.relativedelta
 import dateutil.parser
 
@@ -10,16 +10,20 @@ webhook = 'http://localhost:8000/api/webhook'
 
 Commit = apps.get_model('commits', 'Commit')
 
+
 def verify_date_between(date1, date2):
     return date1 >= date2
 
-def subtract_date_months(date, months):
-    d = datetime.strptime(date, '%Y-%m-%d')
+
+def subtract_date_months(_date, months):
+    d = datetime.strptime(_date, '%Y-%m-%d')
     return d - dateutil.relativedelta.relativedelta(months=months)
+
 
 def get_last_month():
     today = date.today().strftime('%Y-%m-%d')
     return subtract_date_months(today, 1)
+
 
 def save_commits_from_repo(repository, repo_object):
     user_repo = github_repos_url + repository
@@ -33,7 +37,10 @@ def save_commits_from_repo(repository, repo_object):
         commit = rc['commit']
         created_at = commit['author']['date']
 
-        is_after = verify_date_between(dateutil.parser.parse(created_at).replace(tzinfo=None), last_month)
+        is_after = verify_date_between(
+            dateutil.parser.parse(created_at).replace(tzinfo=None),
+            last_month
+        )
 
         if is_after:
             repo = Commit(
@@ -49,11 +56,16 @@ def save_commits_from_repo(repository, repo_object):
             repo.save()
             insert_count += 1
 
-    print("End of process repo: {0}, total of commits: {1} total inserted: {2}".format(repository, len(repo_commits.json()), insert_count))
+    print("End of process repo: {0}, total of commits: {1} total inserted: {2}".format(
+        repository,
+        len(repo_commits.json()),
+        insert_count
+    ))
+
 
 def assign_hook(token, repository):
     hooks_url = github_api + '/repos/' + repository + '/hooks'
-    headers = {'Authorization' : 'token ' + token}
+    headers = {'Authorization': 'token ' + token}
     context = {
         "name": "web",
         "active": True,
@@ -70,7 +82,4 @@ def assign_hook(token, repository):
     if response.status_code == 200:
         data = response.json()
         return data.id
-    else:
-        return ""
-
-
+    return ""
