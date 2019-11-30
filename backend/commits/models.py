@@ -5,6 +5,7 @@ path.append('..')
 
 from repositories.models import Repository
 
+
 class Commit(models.Model):
     sha = models.CharField(unique=True, max_length=50)
     repo = models.ForeignKey(Repository, on_delete=models.CASCADE, blank=True, default=None)

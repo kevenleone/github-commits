@@ -6,4 +6,3 @@ router = routers.DefaultRouter()
 router.register('api/commits', CommitViewSet, 'commits')
 
 urlpatterns = router.urls
-

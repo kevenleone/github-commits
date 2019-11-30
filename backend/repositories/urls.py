@@ -6,4 +6,3 @@ router = routers.DefaultRouter()
 router.register('api/repository', RepositoryViewSet, 'repositories')
 
 urlpatterns = router.urls
-
