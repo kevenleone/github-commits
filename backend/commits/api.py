@@ -6,6 +6,7 @@ from pytz import timezone
 from .models import Commit
 from .serializers import CommitSerializer
 from django.apps import apps
+from django.core.paginator import Paginator
 
 UserRepositoryModel = apps.get_model('repositories', 'UserRepository')
 
@@ -21,6 +22,11 @@ class CommitViewSet(viewsets.ModelViewSet):
     serializer_class = CommitSerializer
 
     def list(self, request):
+        try:
+            num_page = request.GET.get('page') or 1
+            num_page = int(num_page)
+        except ValueError:
+            num_page = 1
         last_month = get_last_month()
         last_month_utc = last_month.replace(tzinfo=timezone('UTC'))
         if request.session.get('github_user'):
@@ -37,4 +43,7 @@ class CommitViewSet(viewsets.ModelViewSet):
         else:
             _queryset = self.queryset
         serializer = CommitSerializer(_queryset, many=True)
-        return Response(serializer.data)
+        paginator = Paginator(serializer.data, 25)
+        page = paginator.page(num_page)
+        send_content = {'page': num_page, 'data': page.object_list, 'has_next': page.has_next()}
+        return Response(send_content)

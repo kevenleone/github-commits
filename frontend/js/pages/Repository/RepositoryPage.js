@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Row, Col } from 'reactstrap';
+import Octicon, { ChevronLeft } from '@primer/octicons-react';
 
 import { RepositoryCard } from '../../components/RepositoryCard';
 import Commits from '../../components/Commits/Commits';
@@ -31,7 +33,11 @@ function RepositoryPage(props) {
 
   return (
     <Container className="RepositoryPage">
-      <Row>
+      <Link className="Back" to="/">
+        <Octicon className="giticon" icon={ChevronLeft} size={28} verticalAlign="middle" />
+        <span>Back to Home</span>
+      </Link>
+      <Row className="mt-3">
         <Col xs={12}>
           <RepositoryCard repository={repository} />
         </Col>

@@ -28,6 +28,7 @@
 }
 
 .repository:hover {
+  transition: all 150ms linear;
   background-color: #333;
 
   span.title {
