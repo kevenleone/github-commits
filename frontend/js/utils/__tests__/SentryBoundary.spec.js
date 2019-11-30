@@ -20,6 +20,7 @@ describe('SentryBoundary', () => {
       'Check if there is an error on your Sentry app'
     );
     wrapper.find('button').simulate('click');
+    jest.restoreAllMocks();
   });
 
   test('should render children without error', () => {

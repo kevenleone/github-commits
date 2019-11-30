@@ -54,6 +54,8 @@ exports[`Commits should render with success 1`] = `
               ],
             }
           }
+          fetchMore={[Function]}
+          has_next={false}
         >
           <div
             className="commits"
@@ -216,6 +218,9 @@ exports[`Commits should render with success 1`] = `
                     </ol>
                   </div>
                 </div>
+                <When
+                  condition={false}
+                />
               </Then>
             </If>
           </div>
@@ -279,6 +284,7 @@ exports[`Commits should render with success and rows 1`] = `
             ],
           }
         }
+        has_next={false}
       >
         <div
           className="commits"
@@ -441,6 +447,9 @@ exports[`Commits should render with success and rows 1`] = `
                   </ol>
                 </div>
               </div>
+              <When
+                condition={false}
+              />
             </Then>
           </If>
         </div>

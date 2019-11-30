@@ -22,12 +22,10 @@ export default function Repository() {
     });
   }
 
-  function onSubmit(e) {
-    e.preventDefault();
-    const { login } = window.user;
+  function onSubmit() {
     dispatch({
       type: 'ADD_REPOSITORY_SAGA',
-      payload: { name: repositoryName, user_id: login },
+      payload: { name: repositoryName, user_id: user.login },
     });
     setRepositoryName('');
   }
@@ -38,7 +36,7 @@ export default function Repository() {
 
   return (
     <div className="repositories">
-      <Form onSubmit={onSubmit}>
+      <Form>
         <Row>
           <Col lg={8} sm={4} xl={8}>
             <FormGroup>
@@ -51,7 +49,7 @@ export default function Repository() {
             </FormGroup>
           </Col>
           <Col className="register">
-            <Button color="primary" disabled={!repositoryName}>
+            <Button color="primary" disabled={!repositoryName} onClick={onSubmit}>
               Register
             </Button>
           </Col>

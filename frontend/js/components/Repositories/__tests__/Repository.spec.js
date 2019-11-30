@@ -25,7 +25,7 @@ describe('Repositories', () => {
 
   test('should render with success and rows', () => {
     const store = mockStore({
-      base: { user: {} },
+      base: { user: { login: 'abcd' } },
       repositories: {
         data: [
           {
