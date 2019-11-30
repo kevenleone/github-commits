@@ -1,33 +1,33 @@
-import os
+import json
 from decouple import config
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 import requests
-import json
+
 
 def index(request):
     if request.session.get('github_user'):
         pusher_key = config('PUSHER_APP_KEY')
         user = json.dumps(request.session['github_user'])
-        context = { 'user' : user, 'pusher_key' : pusher_key }
-        return render(request, 'gitcommits/index.html', context )
-    else:
-        return HttpResponseRedirect('/login')
+        context = {'user': user, 'pusher_key': pusher_key}
+        return render(request, 'gitcommits/index.html', context)
+    return HttpResponseRedirect('/login')
+
 
 def login(request):
     if not request.session.get('github_user'):
         client_id = config('GITHUB_CLIENT_ID')
-        return render(request, 'gitcommits/login.html', { 'client_id' : client_id })
-    else:
-        return HttpResponseRedirect('/')
+        return render(request, 'gitcommits/login.html', {'client_id': client_id})
+    return HttpResponseRedirect('/')
+
 
 def logout(request):
     try:
         del request.session['github_user']
     except KeyError:
         print("Session not exists, redirecting...")
-    finally:
-        return HttpResponseRedirect('/login')
+    return HttpResponseRedirect('/login')
+
 
 def authMiddleware(request):
     code = request.GET.get("code")
@@ -44,7 +44,7 @@ def authMiddleware(request):
             request.session['github_token'] = token
             user_request = requests.get(
                 'https://api.github.com/user',
-                headers={ 'Authorization' : 'token ' + token }
+                headers={'Authorization': 'token ' + token}
             )
             if (user_request.status_code == 200):
                 request.session['github_user'] = user_request.text

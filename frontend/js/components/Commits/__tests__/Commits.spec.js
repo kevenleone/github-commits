@@ -12,7 +12,7 @@ import CommitsRoot from '..';
 const mockStore = configureMockStore([sagaMiddleware]);
 
 describe('Commits', () => {
-  const today = new Date().toDateString();
+  const today = new Date('2021-11-11T11:11').toDateString();
 
   const commits = {
     [today]: [

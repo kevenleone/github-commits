@@ -1,9 +1,8 @@
+import django_js_reverse.views
 from . import views
 from django.urls import path
 from django.conf.urls import include, url  # noqa
 from django.contrib import admin
-from django.views.generic import TemplateView
-import django_js_reverse.views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

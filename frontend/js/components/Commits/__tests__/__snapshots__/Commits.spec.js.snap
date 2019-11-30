@@ -40,7 +40,7 @@ exports[`Commits should render with success 1`] = `
         <Commits
           commits={
             Object {
-              "Thu Nov 28 2019": Array [
+              "Thu Nov 11 2021": Array [
                 Object {
                   "author": "Keven Leone",
                   "message": "This is a test",
@@ -66,7 +66,7 @@ exports[`Commits should render with success 1`] = `
                   className="commits-listing"
                 >
                   <div
-                    key="Thu Nov 28 2019"
+                    key="Thu Nov 11 2021"
                   >
                     <div
                       className="commit-group-title"
@@ -106,7 +106,7 @@ exports[`Commits should render with success 1`] = `
                       >
                         Commits on
                         <span>
-                          Thu Nov 28 2019
+                          Thu Nov 11 2021
                         </span>
                       </p>
                     </div>
@@ -265,7 +265,7 @@ exports[`Commits should render with success and rows 1`] = `
       <Commits
         commits={
           Object {
-            "Thu Nov 28 2019": Array [
+            "Thu Nov 11 2021": Array [
               Object {
                 "author": "Keven Leone",
                 "message": "This is a test",
@@ -291,7 +291,7 @@ exports[`Commits should render with success and rows 1`] = `
                 className="commits-listing"
               >
                 <div
-                  key="Thu Nov 28 2019"
+                  key="Thu Nov 11 2021"
                 >
                   <div
                     className="commit-group-title"
@@ -331,7 +331,7 @@ exports[`Commits should render with success and rows 1`] = `
                     >
                       Commits on
                       <span>
-                        Thu Nov 28 2019
+                        Thu Nov 11 2021
                       </span>
                     </p>
                   </div>

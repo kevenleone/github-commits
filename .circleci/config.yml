@@ -52,6 +52,8 @@ jobs:
           command: npm run build
       - run:
           command: npm run lint
+      - run:
+          command: npm run test
       # style check
       - run:
           command: prospector --messages-only
