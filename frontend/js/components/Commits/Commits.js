@@ -1,7 +1,7 @@
 import React from 'react';
-import { Alert } from 'reactstrap';
+import { Alert, Button } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { If, Then, Else } from 'react-if';
+import { If, Then, Else, When } from 'react-if';
 import { useSelector } from 'react-redux';
 import Octicon, { GitCommit } from '@primer/octicons-react';
 import { Link } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import './Commits.scss';
 
 function Commits(props) {
-  const { commits } = props;
+  const { commits, fetchMore, has_next } = props;
   const {
     base: { avatarDefault },
   } = useSelector((state) => state);
@@ -69,6 +69,13 @@ function Commits(props) {
               );
             })}
           </div>
+          <When condition={typeof fetchMore === 'function' && has_next}>
+            <div className="loadmore">
+              <Button block color="primary" onClick={fetchMore}>
+                FETCH MORE
+              </Button>
+            </div>
+          </When>
         </Then>
         <Else>
           <Alert color="info">No Commits tracked until now</Alert>
@@ -80,10 +87,12 @@ function Commits(props) {
 
 Commits.propTypes = {
   commits: PropTypes.any,
+  has_next: PropTypes.bool,
 };
 
 Commits.defaultProps = {
   commits: {},
+  has_next: false,
 };
 
 export default Commits;

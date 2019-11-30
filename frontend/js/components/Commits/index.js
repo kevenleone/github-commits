@@ -9,7 +9,7 @@ import Commits from './Commits';
 export default function RootCommits() {
   const dispatch = useDispatch();
   const {
-    commits: { data: commits },
+    commits: { has_next, data: commits },
   } = useSelector((state) => state);
 
   function getCommits() {
@@ -22,9 +22,13 @@ export default function RootCommits() {
     });
   }
 
+  function fetchMore() {
+    dispatch({ type: 'FETCH_MORE_COMMITS_SAGA' });
+  }
+
   useEffect(() => {
     getCommits();
   }, []);
 
-  return <Commits commits={commits} />;
+  return <Commits commits={commits} fetchMore={fetchMore} has_next={has_next} />;
 }
