@@ -14,9 +14,8 @@ describe('Header', () => {
   const store = mockStore({
     base: { user: { name: 'Keven' } },
   });
-  global.confirm = () => true;
 
-  test('shoud render Header Index', () => {
+  test('shoud render Index with success', () => {
     const wrapper = mount(
       <Provider store={store}>
         <Index />
@@ -25,7 +24,7 @@ describe('Header', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  test('should render with success', () => {
+  test('should render Header with success', () => {
     const wrapper = mount(
       <Provider store={store}>
         <Header />
@@ -43,13 +42,41 @@ describe('Header', () => {
     expect(wrapper.find('span.name').text()).toStrictEqual('Welcome, Keven');
   });
 
-  test.skip('should render and click on logout', () => {
+  test('should render and click on logout and confirm', () => {
     const wrapper = mount(
       <Provider store={store}>
         <Header />
       </Provider>
     );
+
+    jest.spyOn(console, 'error').mockImplementation();
+    const windowConf = jest.spyOn(window, 'confirm').mockImplementation(() => true);
     wrapper.find('button.logout').simulate('click');
-    // jest.spyOn(window, 'confirm').mockImplementation(() => true);
+    expect(windowConf.mock.calls).toHaveLength(1);
+    jest.restoreAllMocks();
+  });
+
+  test('should render and click on logout and reject', () => {
+    const wrapper = mount(
+      <Provider store={store}>
+        <Header />
+      </Provider>
+    );
+
+    jest.spyOn(console, 'error').mockImplementation();
+    const windowConf = jest.spyOn(window, 'confirm').mockImplementation(() => false);
+    wrapper.find('button.logout').simulate('click');
+    expect(windowConf.mock.calls).toHaveLength(1);
+    jest.restoreAllMocks();
+  });
+
+  test('should click on toggle', () => {
+    const wrapper = mount(
+      <Provider store={store}>
+        <Header />
+      </Provider>
+    );
+
+    wrapper.find('button.navbar-toggler').simulate('click');
   });
 });

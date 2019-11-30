@@ -18,12 +18,10 @@ exports[`Repositories should render with success 1`] = `
       className="repositories"
     >
       <Form
-        onSubmit={[Function]}
         tag="form"
       >
         <form
           className=""
-          onSubmit={[Function]}
         >
           <Row
             tag="div"
@@ -110,6 +108,7 @@ exports[`Repositories should render with success 1`] = `
                   <Button
                     color="primary"
                     disabled={true}
+                    onClick={[Function]}
                     tag="button"
                   >
                     <button
@@ -117,6 +116,7 @@ exports[`Repositories should render with success 1`] = `
                       className="btn btn-primary disabled"
                       disabled={true}
                       onClick={[Function]}
+                      type="button"
                     >
                       Register
                     </button>
@@ -252,12 +252,10 @@ exports[`Repositories should render with success and rows 1`] = `
       className="repositories"
     >
       <Form
-        onSubmit={[Function]}
         tag="form"
       >
         <form
           className=""
-          onSubmit={[Function]}
         >
           <Row
             tag="div"
@@ -311,14 +309,14 @@ exports[`Repositories should render with success and rows 1`] = `
                         onChange={[Function]}
                         placeholder="kevenleone/graphscript"
                         type="text"
-                        value="My new value"
+                        value=""
                       >
                         <input
                           className="form-control"
                           onChange={[Function]}
                           placeholder="kevenleone/graphscript"
                           type="text"
-                          value="My new value"
+                          value=""
                         />
                       </Input>
                     </div>
@@ -343,14 +341,16 @@ exports[`Repositories should render with success and rows 1`] = `
                 >
                   <Button
                     color="primary"
-                    disabled={false}
+                    disabled={true}
+                    onClick={[Function]}
                     tag="button"
                   >
                     <button
                       aria-label={null}
-                      className="btn btn-primary"
-                      disabled={false}
+                      className="btn btn-primary disabled"
+                      disabled={true}
                       onClick={[Function]}
+                      type="button"
                     >
                       Register
                     </button>

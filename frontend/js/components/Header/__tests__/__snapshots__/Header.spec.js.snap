@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header shoud render Header Index 1`] = `
+exports[`Header shoud render Index with success 1`] = `
 <Provider
   store={
     Object {
@@ -134,7 +134,7 @@ exports[`Header shoud render Header Index 1`] = `
 </Provider>
 `;
 
-exports[`Header should render with success 1`] = `
+exports[`Header should render Header with success 1`] = `
 <Provider
   store={
     Object {

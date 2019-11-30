@@ -1,6 +1,6 @@
 import { runSaga } from 'redux-saga';
 
-import { getAllCommits, shouldShowLoading } from '../commits';
+import { getAllCommits, shouldShowLoading, fetchMoreCommits } from '../commits';
 import api from '../../../services';
 
 describe('Should tests saga functions for commits', () => {
@@ -39,5 +39,39 @@ describe('Should tests saga functions for commits', () => {
       { payload: { showLoad: false } }
     ).toPromise();
     expect(apiStubError.mock.calls).toHaveLength(2);
+  });
+
+  test('should fetch more with success', async () => {
+    const dispatched = [];
+    const mockCommits = { response: { data: [] } };
+    const apiStubError = jest
+      .spyOn(api, 'get')
+      .mockImplementation(() => Promise.resolve(mockCommits));
+    await runSaga(
+      {
+        dispatch: (action) => dispatched.push(action),
+        getState: () => ({ commits: { page: 1, data: [] }, base: { loading: false } }),
+      },
+      fetchMoreCommits,
+      { payload: { showLoad: false } }
+    ).toPromise();
+    expect(apiStubError.mock.calls).toHaveLength(3);
+  });
+
+  test('should fetch more with error', async () => {
+    const dispatched = [];
+    const mockCommits = { response: { data: [] } };
+    const apiStubError = jest
+      .spyOn(api, 'get')
+      .mockImplementation(() => Promise.reject(mockCommits));
+    await runSaga(
+      {
+        dispatch: (action) => dispatched.push(action),
+        getState: () => ({ commits: { page: 1, data: [] }, base: { loading: false } }),
+      },
+      fetchMoreCommits,
+      { payload: { showLoad: true } }
+    ).toPromise();
+    expect(apiStubError.mock.calls).toHaveLength(4);
   });
 });

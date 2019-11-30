@@ -27,6 +27,7 @@ exports[`Home should render with success 1`] = `
             className="row"
           >
             <Col
+              className="CommitsSection"
               lg={6}
               sm={12}
               tag="div"
@@ -42,7 +43,7 @@ exports[`Home should render with success 1`] = `
               xl={8}
             >
               <div
-                className="col-sm-12 col-lg-6 col-xl-8"
+                className="CommitsSection col-sm-12 col-lg-6 col-xl-8"
               >
                 <h1
                   className="welcome first"
@@ -52,6 +53,8 @@ exports[`Home should render with success 1`] = `
                 <RootCommits>
                   <Commits
                     commits={Array []}
+                    fetchMore={[Function]}
+                    has_next={false}
                   >
                     <div
                       className="commits"
@@ -193,12 +196,10 @@ exports[`Home should render with success 1`] = `
                     className="repositories"
                   >
                     <Form
-                      onSubmit={[Function]}
                       tag="form"
                     >
                       <form
                         className=""
-                        onSubmit={[Function]}
                       >
                         <Row
                           tag="div"
@@ -285,6 +286,7 @@ exports[`Home should render with success 1`] = `
                                 <Button
                                   color="primary"
                                   disabled={true}
+                                  onClick={[Function]}
                                   tag="button"
                                 >
                                   <button
@@ -292,6 +294,7 @@ exports[`Home should render with success 1`] = `
                                     className="btn btn-primary disabled"
                                     disabled={true}
                                     onClick={[Function]}
+                                    type="button"
                                   >
                                     Register
                                   </button>
@@ -410,6 +413,9 @@ exports[`Home should render with success 1`] = `
             </Col>
           </div>
         </Row>
+        <When
+          condition={false}
+        />
       </div>
     </div>
   </Home>
