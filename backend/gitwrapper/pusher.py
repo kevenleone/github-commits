@@ -11,7 +11,7 @@ pusher_client = Pusher(
 
 
 def send_pusher(channel, event, data):
-    sendpush = config('PUSHER_SEND_PUSH')
+    sendpush = config('PUSHER_SEND_PUSH', False)
     if sendpush:
         pusher_client.trigger(channel, event, data)
 

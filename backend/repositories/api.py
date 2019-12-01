@@ -9,10 +9,11 @@ from .models import Repository, UserRepository
 from django.apps import apps
 
 sys.path.append('..')
-from gitwrapper.wrapper import save_commits_from_repo, get_last_month
+from gitwrapper.wrapper import save_commits_from_repo, get_last_month, assign_hook
 from commits.serializers import CommitSerializer
 
 CommitsModel = apps.get_model('commits', 'Commit')
+github_api = 'https://api.github.com/repos/'
 
 
 class RepositoryViewSet(viewsets.ModelViewSet):
@@ -23,19 +24,20 @@ class RepositoryViewSet(viewsets.ModelViewSet):
     serializer_class = RepositorySerializer
 
     def create(self, request):
-        body = request.data
-        user_repository = body['name']
-        github_api = 'https://api.github.com/repos/'
+        user_repository = request.data['name']
         github_repo_url = github_api + user_repository
-        user_id = body['user_id']
-        data = requests.get(github_repo_url)
+        user_id = request.data['user_id']
+        response = requests.get(github_repo_url)
+        github_token = request.session.get('github_token')
         repository_exists = False
-        try:
-            repository = Repository.objects.get(name=user_repository)
-            repository_exists = True
-        except Repository.DoesNotExist:
-            if data.status_code == 200:
-                user_repo = data.json()
+
+        if response.status_code == 200:
+            user_repo = response.json()
+            repo_owner = user_repo["owner"]["login"]
+            try:
+                repository = Repository.objects.get(name=user_repository)
+                repository_exists = True
+            except Repository.DoesNotExist:
                 description = user_repo["description"] if user_repo["description"] else ''
                 repository = Repository(
                     description=description,
@@ -45,18 +47,21 @@ class RepositoryViewSet(viewsets.ModelViewSet):
                     name=user_repository,
                     id=user_repo["id"]
                 )
-                repository.save(user_repository)
+                repository.save()
                 save_commits_from_repo(user_repository, repository)
-            else:
-                raise serializers.ValidationError({'message': 'Github: Repository not found'})
-        obj, new_u_r = UserRepository.objects.update_or_create(user_id=user_id, repo=repository)
+            finally:
+                if repo_owner == user_id:
+                    assign_hook(github_token, user_repository, repository)
+        else:
+            raise serializers.ValidationError({'message': 'Github: Repository not found'})
+        _, new_u_r = UserRepository.objects.update_or_create(user_id=user_id, repo=repository)
         repo_serialized = RepositorySerializer(repository).data
         if not repository_exists:
             return Response(repo_serialized)
-
         return Response(repo_serialized if new_u_r else {'message': 'Repository already exists'})
 
     def list(self, request):
+        print(request.session.get('github_token'))
         if request.session.get('github_user'):
             github_user = json.loads(request.session['github_user'])
             user = github_user['login']

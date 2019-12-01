@@ -22,9 +22,26 @@
     display: flex;
   }
 
-  div.icon:last-child {
-    margin-left: 15px;
+  div.icon:first-child {
+    margin-left: 0px;
   }
+
+  div.icon {
+    margin-left: 15px;
+
+    span {
+      display: none;
+    }
+  }
+
+  .green {
+    color: green;
+  }
+
+  .red {
+    color: red;
+  }
+
 }
 
 .repository:hover {
@@ -39,7 +56,15 @@
     color: #888;
   }
 
-  div.icon {
+  div.icon:nth-child(1), div.icon:nth-child(2) {
     color: #fafafa;
   }
+
+  div.icon span {
+    display: unset;
+    margin-left: 6px;
+    font-weight: 600;
+    color: #fff;
+  }
 }
+

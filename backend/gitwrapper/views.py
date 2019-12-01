@@ -1,13 +1,13 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
-from .pusher import send_pusher
+from .wrapper import process_github_hook
 
 
 class WebHookViewSet(viewsets.ViewSet):
     def receiveHook(self, request):
-        print(request.data)
         data = {
             'message': 'Data Received'
         }
-        send_pusher('github', 'refresh-commit', 'data received')
+        repository_hook = request.data["repository"]
+        process_github_hook(repository_hook)
         return Response(data)

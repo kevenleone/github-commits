@@ -1,14 +1,29 @@
 from datetime import datetime, date
+import json
 import requests
 from django.apps import apps
 import dateutil.relativedelta
 import dateutil.parser
+from decouple import config
+from .pusher import send_pusher
 
-github_api = 'https://api.github.com'
-github_repos_url = github_api + '/repos/'
-webhook = 'http://localhost:8000/api/webhook'
+webhook_payload = config('WEBHOOK_PAYLOAD')
+github_repos_url = 'https://api.github.com/repos/'
 
 Commit = apps.get_model('commits', 'Commit')
+Repository = apps.get_model('repositories', 'Repository')
+
+body_context = {
+    "name": "web",
+    "events": [
+        "push",
+    ],
+    "config": {
+        "url": webhook_payload,
+        "content_type": "json",
+        "insecure_ssl": "0"
+    }
+}
 
 
 def verify_date_between(date1, date2):
@@ -31,6 +46,7 @@ def save_commits_from_repo(repository, repo_object):
 
     last_month = get_last_month()
     insert_count = 0
+    update_count = 0
 
     for rc in repo_commits.json():
         author = rc['author']
@@ -43,7 +59,7 @@ def save_commits_from_repo(repository, repo_object):
         )
 
         if is_after:
-            repo = Commit(
+            _, is_new = Commit.objects.update_or_create(
                 sha=rc['sha'],
                 repo=repo_object,
                 repository=repository,
@@ -53,33 +69,47 @@ def save_commits_from_repo(repository, repo_object):
                 message=commit['message'],
                 created_at=created_at
             )
-            repo.save()
-            insert_count += 1
+            if is_new:
+                insert_count += 1
+                print("Commit created")
+            else:
+                update_count += 1
+                print('Commit updated')
 
-    print("End of process repo: {0}, total of commits: {1} total inserted: {2}".format(
-        repository,
-        len(repo_commits.json()),
-        insert_count
-    ))
+    print("""
+        End of process repo: {0},
+        total of commits: {1},
+        total inserted: {2},
+        total updated: {3}
+    """.format(repository, len(repo_commits.json()), insert_count, update_count))
 
 
-def assign_hook(token, repository):
-    hooks_url = github_api + '/repos/' + repository + '/hooks'
-    headers = {'Authorization': 'token ' + token}
-    context = {
-        "name": "web",
-        "active": True,
-        "events": [
-            "push",
-        ],
-        "config": {
-            "url": webhook,
-            "content_type": "json",
-            "insecure_ssl": "0"
-        }
+def process_github_hook(hook_repository):
+    repository_id = hook_repository['id']
+    repository = hook_repository['full_name']
+    try:
+        repo = Repository.objects.get(id=repository_id)
+        repo.star = hook_repository['stargazers_count']
+        repo.fork = hook_repository['forks_count']
+        repo.save()
+
+        save_commits_from_repo(repository, repo)
+        send_pusher('github', 'refresh-commit', 'data received')
+        print("GitHub Hook update {0} and commits !!!".format(repository))
+    except Repository.DoesNotExist:
+        print("Repo not exists")
+
+
+def assign_hook(token, user_repository, repository):
+    hooks_url = github_repos_url + user_repository + '/hooks'
+    headers = {
+        'Authorization': 'token ' + token,
+        'Content-Type': 'application/json'
     }
-    response = requests.post(hooks_url, data=context, headers=headers)
-    if response.status_code == 200:
+
+    ctx = json.dumps(body_context)
+    response = requests.post(hooks_url, data=ctx, headers=headers)
+    if response.status_code == 201:
         data = response.json()
-        return data.id
-    return ""
+        repository.hook_id = data["id"]
+        repository.save()
