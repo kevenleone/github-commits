@@ -11,7 +11,7 @@ const mockStore = configureMockStore([sagaMiddleware]);
 describe('Routes', () => {
   test('should render with success', () => {
     const store = mockStore({
-      base: { loading: true, user: {} },
+      base: { loading: true, user: { login: 'kevenleone' } },
       commits: { data: [] },
       repositories: { data: [] },
     });

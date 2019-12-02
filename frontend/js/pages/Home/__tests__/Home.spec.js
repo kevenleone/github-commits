@@ -13,7 +13,7 @@ describe('Home', () => {
     const store = mockStore({
       commits: { data: [] },
       repositories: { data: [] },
-      base: { avatarDefault: 'test.jpg', user: { name: 'Keven' } },
+      base: { avatarDefault: 'test.jpg', user: { name: 'Keven', login: 'kevenleone' } },
     });
     const wrapper = mount(
       <Provider store={store}>
