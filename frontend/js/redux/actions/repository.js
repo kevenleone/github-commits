@@ -2,7 +2,7 @@ import { put, call } from 'redux-saga/effects';
 
 import api from '../../services';
 
-import { getAllCommits } from './commits';
+import { getAllCommits, shouldShowLoading } from './commits';
 
 export function* addRepository(action) {
   yield put({ type: 'SET_LOADING' });
@@ -22,8 +22,9 @@ export function* addRepository(action) {
   }
 }
 
-export function* getAllRepositories() {
-  yield put({ type: 'SET_LOADING' });
+export function* getAllRepositories(action) {
+  const showLoading = shouldShowLoading(action);
+  if (showLoading) yield put({ type: 'SET_LOADING' });
 
   try {
     const response = yield call(api.get, `/repository/`);
@@ -31,7 +32,7 @@ export function* getAllRepositories() {
   } catch (e) {
     yield put({ type: 'ERROR', payload: e });
   } finally {
-    yield put({ type: 'SET_LOADING' });
+    if (showLoading) yield put({ type: 'SET_LOADING' });
   }
 }
 

@@ -5,6 +5,7 @@ from django.apps import apps
 import dateutil.relativedelta
 import dateutil.parser
 from decouple import config
+from celery import shared_task
 from .pusher import send_pusher
 
 webhook_payload = config('WEBHOOK_PAYLOAD')
@@ -84,11 +85,13 @@ def save_commits_from_repo(repository, repo_object):
     """.format(repository, len(repo_commits.json()), insert_count, update_count))
 
 
+@shared_task
 def process_github_hook(hook_repository):
+    print("GitHub Payload Hook Starting to Process")
     repository_id = hook_repository['id']
-    repository = hook_repository['full_name']
     try:
         repo = Repository.objects.get(id=repository_id)
+        repository = hook_repository['full_name']
         repo.star = hook_repository['stargazers_count']
         repo.fork = hook_repository['forks_count']
         repo.save()
@@ -97,19 +100,35 @@ def process_github_hook(hook_repository):
         send_pusher('github', 'refresh-commit', 'data received')
         print("GitHub Hook update {0} and commits !!!".format(repository))
     except Repository.DoesNotExist:
-        print("Repo not exists")
+        print("Repository not exists")
+    finally:
+        print("GitHub Payload Hook End of Process")
 
 
-def assign_hook(token, user_repository, repository):
-    hooks_url = github_repos_url + user_repository + '/hooks'
+@shared_task
+def assign_hook(token, repository_name):
+    print("AssignHook Starting to Process")
+    hooks_url = github_repos_url + repository_name + '/hooks'
     headers = {
         'Authorization': 'token ' + token,
         'Content-Type': 'application/json'
     }
 
-    ctx = json.dumps(body_context)
-    response = requests.post(hooks_url, data=ctx, headers=headers)
-    if response.status_code == 201:
-        data = response.json()
-        repository.hook_id = data["id"]
-        repository.save()
+    try:
+        repository = Repository.objects.get(name=repository_name)
+        ctx = json.dumps(body_context)
+        response = requests.post(hooks_url, data=ctx, headers=headers)
+        if response.status_code == 201:
+            data = response.json()
+            repository.hook_id = data["id"]
+            repository.save()
+            channel = repository_name.split('/')[0]
+            send_pusher(channel, 'refresh-repository', 'Hook Assigned')
+            print("{0} Hook created and repository has been updated".format(repository_name))
+        else:
+            print("{0} Hook not created, reason: {1}".format(repository_name, response.text))
+    except Repository.DoesNotExist:
+        print("Repository: {0} not exists".format(repository_name))
+    finally:
+        print("AssignHook End of Process")
+

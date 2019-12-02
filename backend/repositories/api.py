@@ -51,11 +51,13 @@ class RepositoryViewSet(viewsets.ModelViewSet):
                 save_commits_from_repo(user_repository, repository)
             finally:
                 if repo_owner == user_id:
-                    assign_hook(github_token, user_repository, repository)
+                    assign_hook.delay(github_token, user_repository)
         else:
             raise serializers.ValidationError({'message': 'Github: Repository not found'})
         _, new_u_r = UserRepository.objects.update_or_create(user_id=user_id, repo=repository)
+
         repo_serialized = RepositorySerializer(repository).data
+
         if not repository_exists:
             return Response(repo_serialized)
         return Response(repo_serialized if new_u_r else {'message': 'Repository already exists'})
