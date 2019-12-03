@@ -4,6 +4,7 @@ import { If, Then, Else } from 'react-if';
 import { Form, Alert, FormGroup, Label, Input, Button, Col, Row } from 'reactstrap';
 
 import { RepositoryCard } from '../RepositoryCard';
+import pusher from '../../services/pusher';
 import './Repository.scss';
 
 export default function Repository() {
@@ -15,17 +16,25 @@ export default function Repository() {
     repositories: { data: repositories },
   } = useSelector((state) => state);
 
+  const user_id = user.login;
+
   function getAllRepositories() {
     dispatch({
       type: 'GET_ALL_REPOSITORY_SAGA',
-      payload: { user_id: user.login },
+      payload: { showLoad: true },
+    });
+
+    const channel = pusher.subscribe(`user.${user_id}`);
+    channel.bind('refresh-repository', (data) => {
+      dispatch({ type: 'GET_ALL_REPOSITORY_SAGA', payload: { showLoad: false } });
+      console.log(`Receiving refresh-repository, payload: ${data}`);
     });
   }
 
   function onSubmit() {
     dispatch({
       type: 'ADD_REPOSITORY_SAGA',
-      payload: { name: repositoryName, user_id: user.login },
+      payload: { name: repositoryName, user_id },
     });
     setRepositoryName('');
   }

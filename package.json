@@ -11,6 +11,7 @@
     "start": "npm-run-all -p start:*",
     "start:server": "python3 backend/manage.py runserver",
     "start:web": "babel-node server.js",
+    "celery": "celery worker --workdir backend --app=gitcommits --loglevel=info",
     "build": "NODE_ENV=production webpack -p --progress --colors --config webpack.prod.config.js --bail",
     "lint": "eslint frontend",
     "coverage": "jest --coverage"

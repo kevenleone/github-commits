@@ -12,10 +12,10 @@ import CommitsRoot from '..';
 const mockStore = configureMockStore([sagaMiddleware]);
 
 describe('Commits', () => {
-  const today = new Date('2021-11-11T11:11').toDateString();
+  const futureDate = new Date('2021-11-11T11:11').toDateString();
 
   const commits = {
-    [today]: [
+    [futureDate]: [
       {
         message: 'This is a test',
         author: 'Keven Leone',
@@ -31,7 +31,7 @@ describe('Commits', () => {
 
   test('should render with success', () => {
     const store = mockStore({
-      base: { avatarDefault: 'lalala.jpg' },
+      base: { user: { login: 'kevenleone' }, avatarDefault: 'lalala.jpg' },
       commits: {
         data: commits,
       },
@@ -49,7 +49,7 @@ describe('Commits', () => {
 
   test('should render with success and rows', () => {
     const store = mockStore({
-      base: { avatarDefault: 'lalala.jpg' },
+      base: { user: { login: 'kevenleone' }, avatarDefault: 'lalala.jpg' },
     });
 
     const wrapper = mount(

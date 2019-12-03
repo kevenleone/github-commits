@@ -11,7 +11,7 @@ const mockStore = configureMockStore([sagaMiddleware]);
 describe('Repositories', () => {
   test('should render with success', () => {
     const store = mockStore({
-      base: { user: {} },
+      base: { user: { login: 'kevenleone' } },
       repositories: { data: [] },
     });
 
@@ -25,7 +25,7 @@ describe('Repositories', () => {
 
   test('should render with success and rows', () => {
     const store = mockStore({
-      base: { user: { login: 'abcd' } },
+      base: { user: { login: 'kevenleone' } },
       repositories: {
         data: [
           {

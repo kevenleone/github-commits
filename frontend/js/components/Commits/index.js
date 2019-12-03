@@ -9,13 +9,16 @@ import Commits from './Commits';
 export default function RootCommits() {
   const dispatch = useDispatch();
   const {
+    base: {
+      user: { login },
+    },
     commits: { has_next, data: commits },
   } = useSelector((state) => state);
 
   function getCommits() {
     dispatch({ type: 'GET_ALL_COMMITS_SAGA', payload: { showLoad: true } });
 
-    const channel = pusher.subscribe('github');
+    const channel = pusher.subscribe(`user.${login}`);
     channel.bind('refresh-commit', (data) => {
       dispatch({ type: 'GET_ALL_COMMITS_SAGA', payload: { showLoad: false } });
       console.log(`Receiving refresh-commit, payload: ${data}`);

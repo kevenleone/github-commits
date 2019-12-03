@@ -32,6 +32,8 @@ AUTH_PASSWORD_VALIDATORS = []  # allow easy passwords only on local
 
 # Celery
 CELERY_TASK_ALWAYS_EAGER = True
+CELERY_BROKER_URL = config('REDIS_URL')
+CELERY_RESULT_BACKEND = config('REDIS_URL')
 
 # Email
 EMAIL_FILE_PATH = base_dir_join('tmp_email')

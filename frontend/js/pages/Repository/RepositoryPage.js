@@ -7,10 +7,14 @@ import Octicon, { ChevronLeft } from '@primer/octicons-react';
 
 import { RepositoryCard } from '../../components/RepositoryCard';
 import Commits from '../../components/Commits/Commits';
+import pusher from '../../services/pusher';
 import './RepositoryPage.scss';
 
 function RepositoryPage(props) {
   const {
+    base: {
+      user: { login },
+    },
     repositories: { repository = {} },
     commits: { repository_commits },
   } = useSelector((state) => state);
@@ -22,8 +26,18 @@ function RepositoryPage(props) {
 
   function onPageLoad() {
     const { user, repo } = params;
-    const payload = `${user}*${repo}`;
+    const payload = {
+      repository: `${user}*${repo}`,
+      showLoad: true,
+    };
     dispatch({ type: 'GET_REPOSITORY_SAGA', payload });
+
+    const channel = pusher.subscribe(`user.${login}`);
+    channel.bind('refresh-all', (data) => {
+      dispatch({ type: 'GET_REPOSITORY_SAGA', payload: { ...payload, showLoad: false } });
+      // eslint-disable-next-line no-console
+      console.log(`Receiving refresh-all, payload: ${data}`);
+    });
   }
 
   useEffect(() => {
