@@ -1,10 +1,10 @@
 import React from 'react';
-import { Alert, Button } from 'reactstrap';
-import PropTypes from 'prop-types';
-import { If, Then, Else, When } from 'react-if';
-import { useSelector } from 'react-redux';
 import Octicon, { GitCommit } from '@primer/octicons-react';
+import { If, Then, Else, When } from 'react-if';
+import { Alert, Button } from 'reactstrap';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import './Commits.scss';
 
@@ -44,13 +44,13 @@ function Commits(props) {
                           <div className="commit">
                             <div className="left">
                               <img
-                                alt="author"
+                                alt={`Avatar of user ${author} on GitHub`}
                                 className="authorImg"
                                 src={author_avatar || avatarDefault}
                               />
                             </div>
                             <div className="right">
-                              <span className="commit_name">
+                              <span className="commit_name" title={message}>
                                 {message && message.length >= 80
                                   ? `${message.substring(0, 120)}...`
                                   : message}

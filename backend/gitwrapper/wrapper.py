@@ -20,6 +20,7 @@ github_repos_url = 'https://api.github.com/repos/'
 
 Commit = apps.get_model('commits', 'Commit')
 Repository = apps.get_model('repositories', 'Repository')
+UserRepository = apps.get_model('repositories', 'UserRepository')
 
 body_context = {
     "name": "web",
@@ -32,6 +33,15 @@ body_context = {
         "insecure_ssl": "0"
     }
 }
+
+
+def notify_users_commit(repository_id):
+    users_repository = UserRepository.objects.filter(repo_id=repository_id)
+    for user in users_repository:
+        user_id = "user." + user.user_id
+        send_pusher(user_id, 'refresh-commit', 'data received')
+        send_pusher(user_id, 'refresh-all', 'data received')
+    print("Notify Users Commit - End of Process")
 
 
 def verify_date_between(date1, date2):
@@ -79,22 +89,17 @@ def save_commits_from_repo(repository, repo_object):
             )
             if is_new:
                 insert_count += 1
-                print("Commit created")
             else:
                 update_count += 1
-                print('Commit updated')
 
-    print("""
-        End of process repo: {0},
-        total of commits: {1},
-        total inserted: {2},
-        total updated: {3}
+    print("""End of process repo: {0}, Total of: commits: {1}, created: {2}, updated: {3}
     """.format(repository, len(repo_commits.json()), insert_count, update_count))
 
 
 @app.task
 def process_github_hook(hook_repository):
-    print("GitHub Payload Hook Starting to Process")
+    func = 'GitHub Payload -'
+    print("{0} Starting to Process".format(func))
     repository_id = hook_repository['id']
     try:
         repo = Repository.objects.get(id=repository_id)
@@ -104,17 +109,18 @@ def process_github_hook(hook_repository):
         repo.save()
 
         save_commits_from_repo(repository, repo)
-        send_pusher('github', 'refresh-commit', 'data received')
-        print("GitHub Hook update {0} and commits !!!".format(repository))
+        notify_users_commit(repository_id)
+        print("{0} update {1} and commits !!!".format(func, repository))
     except Repository.DoesNotExist:
-        print("Repository not exists")
+        print("{0} Repository not exists".format(func))
     finally:
-        print("GitHub Payload Hook End of Process")
+        print("{0} End of Process".format(func))
 
 
 @app.task
 def assign_hook(token, repository_name):
-    print("AssignHook Starting to Process")
+    func = 'Assign Hook -'
+    print("{0} Starting to Process".format(func))
     hooks_url = github_repos_url + repository_name + '/hooks'
     headers = {
         'Authorization': 'token ' + token,
@@ -129,12 +135,13 @@ def assign_hook(token, repository_name):
             data = response.json()
             repository.hook_id = data["id"]
             repository.save()
-            channel = repository_name.split('/')[0]
+            channel = "user." + repository_name.split('/')[0]
             send_pusher(channel, 'refresh-repository', 'Hook Assigned')
-            print("{0} Hook created and repository has been updated".format(repository_name))
+            print("{0} {1} Hook created and repo has been updated".format(func, repository_name))
         else:
-            print("{0} Hook not created, reason: {1}".format(repository_name, response.text))
+            reason = response.text
+            print("{0} {1} Hook not created, reason: {2}".format(func, repository_name, reason))
     except Repository.DoesNotExist:
-        print("Repository: {0} not exists".format(repository_name))
+        print("{0} Repository: {1} not exists".format(func, repository_name))
     finally:
-        print("AssignHook End of Process")
+        print("{0} End of Process".format(func))

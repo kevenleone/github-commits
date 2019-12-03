@@ -37,15 +37,16 @@ export function* getAllRepositories(action) {
 }
 
 export function* getRepository(action) {
-  yield put({ type: 'SET_LOADING' });
+  const showLoading = shouldShowLoading(action);
+  if (showLoading) yield put({ type: 'SET_LOADING' });
 
   try {
-    const response = yield call(api.get, `/repository/${action.payload}`);
+    const response = yield call(api.get, `/repository/${action.payload.repository}`);
     yield put({ type: 'GET_REPOSITORY', payload: response.data.repository });
     yield put({ type: 'GET_COMMIT_FROM_REPO', payload: response.data.commits });
   } catch (e) {
     yield put({ type: 'ERROR', payload: e });
   } finally {
-    yield put({ type: 'SET_LOADING' });
+    if (showLoading) yield put({ type: 'SET_LOADING' });
   }
 }

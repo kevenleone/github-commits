@@ -24,7 +24,7 @@ export default function Repository() {
       payload: { showLoad: true },
     });
 
-    const channel = pusher.subscribe(user_id);
+    const channel = pusher.subscribe(`user.${user_id}`);
     channel.bind('refresh-repository', (data) => {
       dispatch({ type: 'GET_ALL_REPOSITORY_SAGA', payload: { showLoad: false } });
       console.log(`Receiving refresh-repository, payload: ${data}`);
