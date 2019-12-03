@@ -60,7 +60,6 @@ def get_last_month():
 
 def save_commits_from_repo(repo_object):
     repository = repo_object.name
-    print("SAVV" + repository)
     user_repo = github_repos_url + repository
     repo_commits = requests.get(user_repo + '/commits?sha=master')
 
