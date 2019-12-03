@@ -48,7 +48,7 @@ class RepositoryViewSet(viewsets.ModelViewSet):
                     id=user_repo["id"]
                 )
                 repository.save()
-                save_commits_from_repo(user_repository, repository)
+                save_commits_from_repo(repository)
             finally:
                 if repo_owner == user_id:
                     assign_hook.delay(github_token, user_repository)
@@ -63,7 +63,6 @@ class RepositoryViewSet(viewsets.ModelViewSet):
         return Response(repo_serialized if new_u_r else {'message': 'Repository already exists'})
 
     def list(self, request):
-        print(request.session.get('github_token'))
         if request.session.get('github_user'):
             github_user = json.loads(request.session['github_user'])
             user = github_user['login']

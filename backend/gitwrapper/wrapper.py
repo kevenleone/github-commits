@@ -58,7 +58,9 @@ def get_last_month():
     return subtract_date_months(today, 1)
 
 
-def save_commits_from_repo(repository, repo_object):
+def save_commits_from_repo(repo_object):
+    repository = repo_object.name
+    print("SAVV" + repository)
     user_repo = github_repos_url + repository
     repo_commits = requests.get(user_repo + '/commits?sha=master')
 
@@ -71,10 +73,8 @@ def save_commits_from_repo(repository, repo_object):
         commit = rc['commit']
         created_at = commit['author']['date']
 
-        is_after = verify_date_between(
-            dateutil.parser.parse(created_at).replace(tzinfo=None),
-            last_month
-        )
+        created_at_dt = dateutil.parser.parse(created_at).replace(tzinfo=None)
+        is_after = verify_date_between(created_at_dt, last_month)
 
         if is_after:
             _, is_new = Commit.objects.update_or_create(
@@ -108,7 +108,7 @@ def process_github_hook(hook_repository):
         repo.fork = hook_repository['forks_count']
         repo.save()
 
-        save_commits_from_repo(repository, repo)
+        save_commits_from_repo(repo)
         notify_users_commit(repository_id)
         print("{0} update {1} and commits !!!".format(func, repository))
     except Repository.DoesNotExist:
