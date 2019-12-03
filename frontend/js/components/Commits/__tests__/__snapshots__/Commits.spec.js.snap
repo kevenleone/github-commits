@@ -125,7 +125,7 @@ exports[`Commits should render with success 1`] = `
                             className="left"
                           >
                             <img
-                              alt="author"
+                              alt="Avatar of user Keven Leone on GitHub"
                               className="authorImg"
                               src="lalala.jpg"
                             />
@@ -135,6 +135,7 @@ exports[`Commits should render with success 1`] = `
                           >
                             <span
                               className="commit_name"
+                              title="This is a test"
                             >
                               This is a test
                             </span>
@@ -175,7 +176,7 @@ exports[`Commits should render with success 1`] = `
                             className="left"
                           >
                             <img
-                              alt="author"
+                              alt="Avatar of user Keven Leone on GitHub"
                               className="authorImg"
                               src="lalala.jpg"
                             />
@@ -185,6 +186,7 @@ exports[`Commits should render with success 1`] = `
                           >
                             <span
                               className="commit_name"
+                              title="This is a big text This is a big text This is a big text This is a big text This is a big text "
                             >
                               This is a big text This is a big text This is a big text This is a big text This is a big text ...
                             </span>
@@ -354,7 +356,7 @@ exports[`Commits should render with success and rows 1`] = `
                           className="left"
                         >
                           <img
-                            alt="author"
+                            alt="Avatar of user Keven Leone on GitHub"
                             className="authorImg"
                             src="lalala.jpg"
                           />
@@ -364,6 +366,7 @@ exports[`Commits should render with success and rows 1`] = `
                         >
                           <span
                             className="commit_name"
+                            title="This is a test"
                           >
                             This is a test
                           </span>
@@ -404,7 +407,7 @@ exports[`Commits should render with success and rows 1`] = `
                           className="left"
                         >
                           <img
-                            alt="author"
+                            alt="Avatar of user Keven Leone on GitHub"
                             className="authorImg"
                             src="lalala.jpg"
                           />
@@ -414,6 +417,7 @@ exports[`Commits should render with success and rows 1`] = `
                         >
                           <span
                             className="commit_name"
+                            title="This is a big text This is a big text This is a big text This is a big text This is a big text "
                           >
                             This is a big text This is a big text This is a big text This is a big text This is a big text ...
                           </span>
