@@ -2,11 +2,18 @@ from datetime import datetime, date
 import json
 import requests
 from django.apps import apps
+from decouple import config
 import dateutil.relativedelta
 import dateutil.parser
-from decouple import config
-from celery import shared_task
+from celery import Celery
 from .pusher import send_pusher
+
+
+app = Celery(
+    'gitcommits_tasks',
+    backend=config('REDIS_URL'),
+    broker=config('REDIS_URL')
+)
 
 webhook_payload = config('WEBHOOK_PAYLOAD')
 github_repos_url = 'https://api.github.com/repos/'
@@ -85,7 +92,7 @@ def save_commits_from_repo(repository, repo_object):
     """.format(repository, len(repo_commits.json()), insert_count, update_count))
 
 
-@shared_task
+@app.task
 def process_github_hook(hook_repository):
     print("GitHub Payload Hook Starting to Process")
     repository_id = hook_repository['id']
@@ -105,7 +112,7 @@ def process_github_hook(hook_repository):
         print("GitHub Payload Hook End of Process")
 
 
-@shared_task
+@app.task
 def assign_hook(token, repository_name):
     print("AssignHook Starting to Process")
     hooks_url = github_repos_url + repository_name + '/hooks'
@@ -131,4 +138,3 @@ def assign_hook(token, repository_name):
         print("Repository: {0} not exists".format(repository_name))
     finally:
         print("AssignHook End of Process")
-
